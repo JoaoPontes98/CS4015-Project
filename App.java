@@ -5,6 +5,8 @@ public class App {
     Scanner input = new Scanner(System.in);
     char command = ' ';
 
+    // List of items
+
     // Screen objects
     Homescreen hs = new Homescreen();
 
@@ -18,7 +20,8 @@ public class App {
 
             } else if (command == 'c') {
                 // create task
-
+                // newTask = createScreen.runForm();
+                // list.push(newTask);
             } else if (command == 't') {
                 // todays tasks
 
