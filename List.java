@@ -6,7 +6,6 @@ public class List implements Item {
     private String title;
     private String description;
     private ArrayList<Item> items;
-    
 
     public List(Date date, String title, String description) {
         this.date = date;

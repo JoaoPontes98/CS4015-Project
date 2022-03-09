@@ -11,11 +11,4 @@ public class Homescreen {
         System.out.println("(T)oday's Tasks");
         System.out.println("(Q)uit\n");
     }
-
-    void run() {
-        while (command != 'q') {
-            printHomescreen();
-            command = input.next().charAt(0);
-        }
-    }
 }
