@@ -14,6 +14,6 @@ public class List {
     }
 
     public void addTask(Task task) {
-        tasks.push(task);
+        tasks.add(task);
     }
 }
