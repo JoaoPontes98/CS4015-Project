@@ -9,6 +9,7 @@ public class App {
 
     // Screen objects
     Homescreen hs = new Homescreen();
+    Createscreen cs = new Createscreen();
 
     void run() {
         while (command != 'q') {
@@ -20,7 +21,8 @@ public class App {
 
             } else if (command == 'c') {
                 // create task
-                // newTask = createScreen.runForm();
+                Task newTask;
+                newTask = cs.createTaskForm();
                 // list.push(newTask);
             } else if (command == 't') {
                 // todays tasks
