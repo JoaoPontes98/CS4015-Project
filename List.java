@@ -6,7 +6,6 @@ public class List {
     private String title;
     private String description;
     private ArrayList<Task> tasks;
-    
 
     public List(Date date, String title, String description) {
         this.date = date;

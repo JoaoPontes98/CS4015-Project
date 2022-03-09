@@ -1,7 +1,7 @@
 public class Driver {
     public static void main(String[] args) {
-        Homescreen hs = new Homescreen();
+        App app = new App();
 
-        hs.run();
+        app.run();
     }
 }
