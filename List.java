@@ -18,6 +18,10 @@ public class List implements Item {
         items.add(item);
     }
 
+    public Date getDate() {
+        return date;
+    }
+
     public String display() {
         String str = "";
 
