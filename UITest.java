@@ -14,9 +14,10 @@ public class UITest {
         frame.setVisible(true);
         frame.pack();
 
-        //CreateListDialog dialog = new CreateListDialog(frame);
-        CreateTaskDialog dialog = new CreateTaskDialog(frame);
-        //AddTaskMenu menu = new AddTaskMenu(button, null);
+        CreateListDialog dialog1 = new CreateListDialog(frame);
+        CreateTaskDialog dialog2 = new CreateTaskDialog(frame);
+        BrowseListsDialog dialog3 = new BrowseListsDialog(frame);
+        AddTaskMenu menu = new AddTaskMenu(button, null);
 
         //SimpleDateFormat format = new SimpleDateFormat("yyyy/mm/dd");
 
