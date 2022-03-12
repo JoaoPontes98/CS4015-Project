@@ -3,14 +3,10 @@ import java.util.Date;
 
 public class List implements Item {
     private Date date;
-    private String title;
-    private String description;
     private ArrayList<Item> items;
 
-    public List(Date date, String title, String description) {
+    public List(Date date) {
         this.date = date;
-        this.title = title;
-        this.description = description;
         this.items = new ArrayList<Item>();
     }
 
