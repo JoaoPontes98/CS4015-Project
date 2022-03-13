@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class CreateTaskDialog extends JDialog implements ActionListener {
+    private App app;
     private JLabel descriptionLabel;
     private JTextField descriptionField;
     private JCheckBox recurringCheckBox;
@@ -20,8 +21,9 @@ public class CreateTaskDialog extends JDialog implements ActionListener {
     private JPanel recurrencePanel;
     private JPanel appointmentPanel;
 
-    public CreateTaskDialog(JFrame frame) {
+    public CreateTaskDialog(App app, JFrame frame) {
         super(frame);
+        this.app = app;
 
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));

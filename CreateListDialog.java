@@ -6,13 +6,15 @@ import java.util.Date;
 import java.text.ParseException;
 
 public class CreateListDialog extends JDialog implements ActionListener {
+    private App app;
     private JLabel mainLabel;
     private JTextField dateField;
     private JButton okButton;
     private JButton cancelButton;
 
-    public CreateListDialog(JFrame frame) {
+    public CreateListDialog(App app, JFrame frame) {
         super(frame);
+        this.app = app;
 
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
@@ -77,6 +79,7 @@ public class CreateListDialog extends JDialog implements ActionListener {
                     */
 
                     List newList = new List(date);
+                    app.displayList(newList);
                 }
                 catch (ParseException e) {
                     e.printStackTrace();

@@ -6,14 +6,16 @@ import java.util.Date;
 import java.text.ParseException;
 
 public class BrowseListsDialog extends JDialog implements ActionListener {
+    private App app;
     private JLabel mainLabel;
     private JList<String> datesList;
     private JScrollPane scroller;
     private JButton okButton;
     private JButton cancelButton;
 
-    public BrowseListsDialog(JFrame frame) {
+    public BrowseListsDialog(App app, JFrame frame) {
         super(frame);
+        this.app = app;
 
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
