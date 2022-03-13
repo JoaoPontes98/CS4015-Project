@@ -14,6 +14,7 @@ public class UITest {
         frame.setVisible(true);
         frame.pack();
 
+        ListScreen listScreen = new ListScreen(frame);
         CreateListDialog dialog1 = new CreateListDialog(frame);
         CreateTaskDialog dialog2 = new CreateTaskDialog(frame);
         BrowseListsDialog dialog3 = new BrowseListsDialog(frame);
@@ -28,7 +29,8 @@ public class UITest {
         //String s1 = (String) JOptionPane.showInputDialog(frame, "Please select a date:", "Browse Lists", JOptionPane.PLAIN_MESSAGE, null, lists, null);
 
         //public List browseLists(String input) {}
-        //if (s1 != null) {
+        //if (s1 != null) {ls
+
            // try {
             //        Date date = format.parse(s1);
               //      System.out.println(date);

@@ -21,8 +21,8 @@ public class App {
 
             } else if (command == 'c') {
                 // create task
-                Task newTask;
-                newTask = cs.createTaskForm();
+                //Task newTask;
+                //newTask = cs.createTaskForm();
                 // list.push(newTask);
             } else if (command == 't') {
                 // todays tasks
