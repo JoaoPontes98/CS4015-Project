@@ -16,6 +16,7 @@ public class ListScreen extends JDialog implements ActionListener{
 
     //List
     private JPanel list;
+    private JButton newTaskButton;
 
     //Footer
     private JPanel footer;
@@ -53,12 +54,14 @@ public class ListScreen extends JDialog implements ActionListener{
         //Make the checkBoxes
         for (Item task: mainList) {
             checkBoxes.add(new JCheckBox(task.display()));
-
         }
         //put the check boxes on the screen
         for (JCheckBox checkBox: checkBoxes){
             list.add(checkBox);
         }
+        //Print the add new task button
+        newTaskButton = new JButton("+");
+        list .add(newTaskButton);
 
         // footer init
         footer = new JPanel();
