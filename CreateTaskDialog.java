@@ -138,8 +138,6 @@ public class CreateTaskDialog extends JDialog implements ActionListener {
         contentPane.add(inputPanel);
         contentPane.add(buttonPanel);
         
-        contentPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.red), contentPane.getBorder()));
-
         setContentPane(contentPane);
         pack();
         setVisible(true);
@@ -147,6 +145,20 @@ public class CreateTaskDialog extends JDialog implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("OK")) {
+            String description = descriptionField.getText();
+            Task newTask = new BasicTask(description);
+
+            if (recurringCheckBox.isSelected()) {
+                int recurrenceNumber = Integer.parseInt(recurrenceNumberField.getText());
+                String recurrenceType = (String) recurrenceTypeComboBox.getSelectedItem();
+                newTask = new RecurringDecorator(newTask);
+            }
+            if (appointmentCheckBox.isSelected()) {
+                String time = timeField.getText();
+                String place = placeField.getText();
+                newTask = new AppointmentDecorator(newTask);
+            }
+
             setVisible(false);
             descriptionField.setText("");
             recurringCheckBox.setSelected(false);
