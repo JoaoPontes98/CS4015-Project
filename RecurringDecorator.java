@@ -2,8 +2,10 @@ public class RecurringDecorator extends TaskDecorator {
     private int recurrence;
     private String type;
 
-    public RecurringDecorator(Task task) {
+    public RecurringDecorator(Task task, int recurrence, String type) {
         super(task);
+        this.recurrence = recurrence;
+        this.type = type;
     }
 
     @Override

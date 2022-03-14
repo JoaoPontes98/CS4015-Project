@@ -54,10 +54,10 @@ public class App {
         Task newTask = new BasicTask(description);
 
         if (isAppointment) {
-            newTask = new AppointmentDecorator(newTask);
+            newTask = new AppointmentDecorator(newTask, time, place);
         }
         if (isRecurring) {
-            newTask = new RecurringDecorator(newTask);
+            newTask = new RecurringDecorator(newTask, recurrenceNumber, recurrenceType);
         }
 
         currentList.addItem(newTask);
