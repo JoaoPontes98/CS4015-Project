@@ -67,19 +67,8 @@ public class CreateListDialog extends JDialog implements ActionListener {
                     date.setHours(0);
                     date.setMinutes(0);
                     date.setSeconds(0);
-                    System.out.println(date);
-                    /*
-                    public List createList(String input, ArrayList<List> allLists) {
-                        for (List list : allLists) {
-                            if (date == list.getDate()) {
-                                return list;
-                            }
-                        }
-                    }
-                    */
 
-                    List newList = new List(date);
-                    app.displayList(newList);
+                    app.createNewList(date);
                 }
                 catch (ParseException e) {
                     e.printStackTrace();

@@ -25,6 +25,10 @@ public class App {
         return mainFrame;
     }
 
+    public ArrayList<List> getMainList() {
+        return mainList;
+    }
+
     public void displayList(List list) {
         currentList = list;
         //DisplayListPage page = new DisplayListPage(list);
@@ -34,7 +38,7 @@ public class App {
         CreateListDialog dialog = new CreateListDialog(this, getMainFrame());
     }
 
-    public void CreateNewList(Date date) {
+    public void createNewList(Date date) {
         List list = new List(date);
         mainList.add(list);
         displayList(list);
