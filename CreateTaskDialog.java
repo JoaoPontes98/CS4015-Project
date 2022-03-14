@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class CreateTaskDialog extends JDialog implements ActionListener {
+    private App app;
     private JLabel descriptionLabel;
     private JTextField descriptionField;
     private JCheckBox recurringCheckBox;
@@ -20,8 +21,9 @@ public class CreateTaskDialog extends JDialog implements ActionListener {
     private JPanel recurrencePanel;
     private JPanel appointmentPanel;
 
-    public CreateTaskDialog(JFrame frame) {
+    public CreateTaskDialog(App app, JFrame frame) {
         super(frame);
+        this.app = app;
 
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
@@ -138,8 +140,6 @@ public class CreateTaskDialog extends JDialog implements ActionListener {
         contentPane.add(inputPanel);
         contentPane.add(buttonPanel);
         
-        contentPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.red), contentPane.getBorder()));
-
         setContentPane(contentPane);
         pack();
         setVisible(true);
@@ -147,6 +147,17 @@ public class CreateTaskDialog extends JDialog implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("OK")) {
+            String description = descriptionField.getText();
+
+            int recurrenceNumber = recurringCheckBox.isSelected() ? Integer.parseInt(recurrenceNumberField.getText()) : null;
+            String recurrenceType = recurringCheckBox.isSelected() ? (String) recurrenceTypeComboBox.getSelectedItem() : null;
+
+            String time = appointmentCheckBox.isSelected() ? timeField.getText() : null;
+            String place = appointmentCheckBox.isSelected() ? placeField.getText() : null;
+
+            app.createNewTask(description, recurringCheckBox.isSelected(), appointmentCheckBox.isSelected(),
+                                recurrenceNumber, recurrenceType, time, place);
+
             setVisible(false);
             descriptionField.setText("");
             recurringCheckBox.setSelected(false);

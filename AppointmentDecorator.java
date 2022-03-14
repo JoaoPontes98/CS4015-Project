@@ -1,11 +1,13 @@
 import java.util.Date;
 
 public class AppointmentDecorator extends TaskDecorator {
-    private Date time;
+    private String time;
     private String location;
 
-    public AppointmentDecorator(Task task) {
+    public AppointmentDecorator(Task task, String time, String location) {
         super(task);
+        this.time = time;
+        this.location = location;
     }
 
     @Override

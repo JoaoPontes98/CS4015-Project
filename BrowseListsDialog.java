@@ -4,26 +4,40 @@ import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 public class BrowseListsDialog extends JDialog implements ActionListener {
+    private App app;
     private JLabel mainLabel;
     private JList<String> datesList;
     private JScrollPane scroller;
     private JButton okButton;
     private JButton cancelButton;
 
-    public BrowseListsDialog(JFrame frame) {
+    public BrowseListsDialog(App app, JFrame frame) {
         super(frame);
+        this.app = app;
 
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
+        
 
-        String[] arr = {"test1", "test2", "test3", "test1", "test2", "test3", "test1", "test2", "test3"};
+        ArrayList<List> mainList = app.getMainList();
+
+        ArrayList<String> mainListAsStrings = new ArrayList<String>();
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/mm/dd");
+
+        for (List list : mainList) {
+            String date = format.format(list.getDate());
+            mainListAsStrings.add(date);
+        }
 
         mainLabel = new JLabel("Please select a date:", JLabel.CENTER);
         mainLabel.setAlignmentX(0.5f);
 
-        datesList = new JList<String>(arr);
+        datesList = new JList<String>((String[]) mainListAsStrings.toArray());
+
         scroller = new JScrollPane(datesList);
         scroller.setAlignmentX(0.5f);
         scroller.setPreferredSize(new Dimension(150, 150));
@@ -62,7 +76,28 @@ public class BrowseListsDialog extends JDialog implements ActionListener {
         if (event.getActionCommand().equals("OK")) {
             String dateString = datesList.getSelectedValue();
             SimpleDateFormat format = new SimpleDateFormat("yyyy/mm/dd");
-            System.out.println(dateString);
+            Date date;
+
+            if (dateString != null) {
+                try {
+                    date = format.parse(dateString);
+                    date.setHours(0);
+                    date.setMinutes(0);
+                    date.setSeconds(0);
+
+                    app.createNewList(date);
+
+                    for (List list : app.getMainList()) {
+                        if (list.getDate().equals(date)) {
+                            app.displayList(list);
+                            break;
+                        }
+                    }
+                }
+                catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
 
             datesList.setSelectedIndex(0);
             setVisible(false);
