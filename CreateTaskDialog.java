@@ -148,18 +148,15 @@ public class CreateTaskDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("OK")) {
             String description = descriptionField.getText();
-            Task newTask = new BasicTask(description);
 
-            if (recurringCheckBox.isSelected()) {
-                int recurrenceNumber = Integer.parseInt(recurrenceNumberField.getText());
-                String recurrenceType = (String) recurrenceTypeComboBox.getSelectedItem();
-                newTask = new RecurringDecorator(newTask);
-            }
-            if (appointmentCheckBox.isSelected()) {
-                String time = timeField.getText();
-                String place = placeField.getText();
-                newTask = new AppointmentDecorator(newTask);
-            }
+            int recurrenceNumber = recurringCheckBox.isSelected() ? Integer.parseInt(recurrenceNumberField.getText()) : null;
+            String recurrenceType = recurringCheckBox.isSelected() ? (String) recurrenceTypeComboBox.getSelectedItem() : null;
+
+            String time = appointmentCheckBox.isSelected() ? timeField.getText() : null;
+            String place = appointmentCheckBox.isSelected() ? placeField.getText() : null;
+
+            app.createNewTask(description, recurringCheckBox.isSelected(), appointmentCheckBox.isSelected(),
+                                recurrenceNumber, recurrenceType, time, place);
 
             setVisible(false);
             descriptionField.setText("");
