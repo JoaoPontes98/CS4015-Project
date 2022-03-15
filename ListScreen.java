@@ -7,7 +7,7 @@ import java.util.Date;
 import java.text.ParseException;
 
 
-public class ListScreen extends JDialog implements ActionListener{
+public class ListScreen extends JPanel implements ActionListener{
     //Header
     private JPanel header;
     private JLabel dateLabel;
@@ -30,21 +30,21 @@ public class ListScreen extends JDialog implements ActionListener{
     private ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
 
     public ListScreen(JFrame frame){
-        super(frame);
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         // Header init
         header = new JPanel();
+        header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
         prevButton = new JButton("<");
         dateLabel = new JLabel("02/05/2022"); // Needs to be updated with current date
         nextButton = new JButton(">");
-        header.setBackground(Color.red);
         header.add(prevButton);
         header.add(dateLabel);
         header.add(nextButton);
 
         // List init
-        list = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        list.setBackground(Color.yellow);
+        list = new JPanel();
+        list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
         BasicTask task1 = new BasicTask("Feed Cat");
         BasicTask task2 = new BasicTask("Fake Death");
         BasicTask task3 = new BasicTask("Lick Door Knob");
@@ -65,16 +65,18 @@ public class ListScreen extends JDialog implements ActionListener{
 
         // footer init
         footer = new JPanel();
-        footer.setBackground(Color.blue);
+        footer.setLayout(new BoxLayout(footer, BoxLayout.LINE_AXIS));
         browseButton = new JButton("Browse");
         createButton = new JButton("Create New Todo List");
         footer.add(browseButton);
         footer.add(createButton);
 
-        frame.setSize(WIDTH,HEIGHT);
-        frame.add(header,BorderLayout.NORTH);
-        frame.add(list,BorderLayout.CENTER);
-        frame.add(footer,BorderLayout.SOUTH);
+        add(header);
+        add(list);
+        add(footer);
+
+        frame.add(this);
+        frame.pack();
     }
 
     @Override
