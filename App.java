@@ -9,6 +9,8 @@ public class App {
 
     public static void main(String[] args) {
         App app = new App();
+        List list = new List(new Date());
+        app.displayList(list);
     }
 
     public App() {
@@ -31,7 +33,7 @@ public class App {
 
     public void displayList(List list) {
         currentList = list;
-        //DisplayListPage page = new DisplayListPage(list);
+        ListScreen page = new ListScreen(getMainFrame());
     }
 
     public void openCreateListDialog() {
