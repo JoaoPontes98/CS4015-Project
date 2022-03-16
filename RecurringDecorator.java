@@ -1,17 +1,49 @@
+import java.util.Date;
+import java.util.ArrayList;
+
 public class RecurringDecorator extends TaskDecorator {
     private int recurrence;
     private String type;
+    private App app;
 
-    public RecurringDecorator(Task task, int recurrence, String type) {
+    public RecurringDecorator(App app, Task task, int recurrence, String type) {
         super(task);
+        this.app = app;
         this.recurrence = recurrence;
         this.type = type;
     }
 
     @Override
     public void completeTask() {
-        //recurring functions
         super.task.completeTask();
+        if (recurrence > 0) {
+            recurrence -= 1;
+            Date currentDate = app.getCurrentList().getDate();
+
+            switch(type) {
+                case "Daily":
+                    currentDate.setDate(currentDate.getDay() + 1);
+                case "Weekly":
+                    currentDate.setDate(currentDate.getDay() + 7);
+                case "Bi-Weekly":
+                    currentDate.setDate(currentDate.getDay() + 14);
+                case "Monthly":
+                    currentDate.setMonth(currentDate.getMonth() + 1);
+            }
+
+            ArrayList<List> allLists = app.getMainList();
+
+            for (List list : allLists) {
+                if (list.getDate().equals(currentDate)) {
+                    list.addItem(this);
+                    return;
+                }
+            }
+
+            List newList = new List(currentDate);
+            newList.addItem(this);
+            allLists.add(newList);
+        }
     }
 
 }

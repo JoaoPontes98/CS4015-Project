@@ -59,7 +59,7 @@ public class CreateListDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         if (event.getActionCommand().equals("OK")) {
             String dateString = dateField.getText();
-            SimpleDateFormat format = new SimpleDateFormat("yyyy/mm/dd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 
             if (dateString != null) {
                 try {

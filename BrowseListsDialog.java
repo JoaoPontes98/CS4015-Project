@@ -26,17 +26,20 @@ public class BrowseListsDialog extends JDialog implements ActionListener {
 
         ArrayList<String> mainListAsStrings = new ArrayList<String>();
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/mm/dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 
         for (List list : mainList) {
             String date = format.format(list.getDate());
             mainListAsStrings.add(date);
         }
 
+        String[] arr = new String[mainListAsStrings.size()];
+        mainListAsStrings.toArray(arr);
+
         mainLabel = new JLabel("Please select a date:", JLabel.CENTER);
         mainLabel.setAlignmentX(0.5f);
 
-        datesList = new JList<String>((String[]) mainListAsStrings.toArray());
+        datesList = new JList<String>(arr);
 
         scroller = new JScrollPane(datesList);
         scroller.setAlignmentX(0.5f);
@@ -75,7 +78,7 @@ public class BrowseListsDialog extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         if (event.getActionCommand().equals("OK")) {
             String dateString = datesList.getSelectedValue();
-            SimpleDateFormat format = new SimpleDateFormat("yyyy/mm/dd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
             Date date;
 
             if (dateString != null) {

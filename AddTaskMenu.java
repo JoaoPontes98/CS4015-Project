@@ -30,13 +30,13 @@ public class AddTaskMenu extends JPopupMenu implements ActionListener {
             AddTaskMenu.this.show(e.getComponent(), e.getX(), e.getY());
         }
     }
-    
+
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("newTask")) {
-            app.openCreateTaskDialog()
-        }
-        else if (e.getActionCommand().equals("newSublist")) {
-            String description = (String) JOptionPane.showInputDialog(this, "Please enter a description:", "Create New Sublist", JOptionPane.QUESTION_MESSAGE, null, null, null);
+            app.openCreateTaskDialog();
+        } else if (e.getActionCommand().equals("newSublist")) {
+            String description = (String) JOptionPane.showInputDialog(this, "Please enter a description:",
+                    "Create New Sublist", JOptionPane.QUESTION_MESSAGE, null, null, null);
             app.createNewSublist(description);
         }
     }

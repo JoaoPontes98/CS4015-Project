@@ -6,7 +6,8 @@ public class App {
     private JFrame mainFrame;
     private ArrayList<List> mainList;
     private List currentList;
-
+    private JPanel currentDisplay;
+    
     public static void main(String[] args) {
         App app = new App();
         List list = new List(new Date());
@@ -16,9 +17,14 @@ public class App {
     public App() {
         mainList = new ArrayList<List>();
         mainFrame = new JFrame();
-        //check list of Lists
-        //if list exists for today's date, display list
-        //otherwise create new list and display it
+
+        Date currentDate = new Date();
+        currentDate.setHours(0);
+        currentDate.setMinutes(0);
+        currentDate.setSeconds(0);
+
+        List firstList = new List(currentDate);
+        displayList(firstList);
         mainFrame.setVisible(true);
         mainFrame.pack();
     }
@@ -31,9 +37,20 @@ public class App {
         return mainList;
     }
 
+    public List getCurrentList() {
+        return currentList;
+    }
+
+    public void setCurrentDisplay(JPanel panel) {
+        this.currentDisplay = panel;
+    }
+
     public void displayList(List list) {
+        if (currentDisplay != null) {
+            currentDisplay.setVisible(false);
+        }
         currentList = list;
-        ListScreen page = new ListScreen(getMainFrame());
+        ListScreen page = new ListScreen(this, getMainFrame(), list);
     }
 
     public void openCreateListDialog() {
@@ -63,7 +80,7 @@ public class App {
             newTask = new AppointmentDecorator(newTask, time, place);
         }
         if (isRecurring) {
-            newTask = new RecurringDecorator(newTask, recurrenceNumber, recurrenceType);
+            newTask = new RecurringDecorator(this, newTask, recurrenceNumber, recurrenceType);
         }
 
         currentList.addItem(newTask);
