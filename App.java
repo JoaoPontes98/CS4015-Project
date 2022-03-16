@@ -49,7 +49,7 @@ public class App {
             currentDisplay.setVisible(false);
         }
         currentList = list;
-        ListScreen page = new ListScreen(this, getMainFrame(), list);
+        currentDisplay = new ListScreen(this, getMainFrame(), list);
     }
 
     public void openCreateListDialog() {

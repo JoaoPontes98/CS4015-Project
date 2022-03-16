@@ -39,7 +39,7 @@ public class ListScreen extends JPanel implements ActionListener {
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         String date = format.format(listToDisplay.getDate());
-        dateLabel = new JLabel(date); // Needs to be updated with current date
+        dateLabel = new JLabel(date);
         dateLabel.setAlignmentX(0.5f);
         header.add(dateLabel);
         header.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
