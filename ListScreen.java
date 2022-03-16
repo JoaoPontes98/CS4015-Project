@@ -23,13 +23,13 @@ public class ListScreen extends JPanel implements ActionListener{
     private JButton browseButton;
     private JButton createButton;
 
-    private int WIDTH = 300;
-    private int HEIGHT = 600;
+    private App app;
 
     private ArrayList<Item> mainList = new ArrayList<Item>();
     private ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
 
-    public ListScreen(JFrame frame){
+    public ListScreen(App app, JFrame frame){
+        this.app = app;
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         // Header init
@@ -68,7 +68,11 @@ public class ListScreen extends JPanel implements ActionListener{
         footer = new JPanel();
         footer.setLayout(new BoxLayout(footer, BoxLayout.LINE_AXIS));
         browseButton = new JButton("Browse");
+        browseButton.setActionCommand("Browse");
+        browseButton.addActionListener(this);
         createButton = new JButton("Create New");
+        createButton.setActionCommand("Create New");
+        createButton.addActionListener(this);
         footer.add(browseButton);
         footer.add(Box.createRigidArea(new Dimension(20, 0)));
         footer.add(createButton);
@@ -92,6 +96,11 @@ public class ListScreen extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getActionCommand().equals("Browse")) {
+            app.openBrowseListsDialog();
+        }
+        else if (e.getActionCommand().equals("Create New")) {
+            app.openCreateListDialog();
+        }
     }
 }

@@ -37,7 +37,7 @@ public class App {
 
     public void displayList(List list) {
         currentList = list;
-        ListScreen page = new ListScreen(getMainFrame());
+        ListScreen page = new ListScreen(this, getMainFrame());
     }
 
     public void openCreateListDialog() {
