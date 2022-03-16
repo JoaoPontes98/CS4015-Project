@@ -9,15 +9,11 @@ public class BasicTask extends Task {
 
     @Override
     public String display() {
-        String str = done ? "[x] " : "[ ] ";
-        str += description;
-        str += "\n";
-
-        return str;
+        return description;
     }
 
     @Override
     public void completeTask() {
-        this.done = true;
+        this.done = !done;
     }
 }

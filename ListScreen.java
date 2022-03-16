@@ -26,7 +26,7 @@ public class ListScreen extends JPanel implements ActionListener {
     private List listToDisplay;
 
     private ArrayList<Item> mainList = new ArrayList<Item>();
-    private ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
+    private ArrayList<JComponent> checkBoxes = new ArrayList<JComponent>();
 
     public ListScreen(App app, JFrame frame, List listToDisplay) {
         this.app = app;
@@ -48,18 +48,24 @@ public class ListScreen extends JPanel implements ActionListener {
         list = new JPanel();
         list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
         BasicTask task1 = new BasicTask("Feed Cat");
-        BasicTask task2 = new BasicTask("Fake Death");
-        BasicTask task3 = new BasicTask("Lick Door Knob");
+        BasicTask task2 = new BasicTask("Feed Friend's Cat");
+        BasicTask task3 = new BasicTask("Feed Mom's Cat");
+        AppointmentDecorator task2dec = new AppointmentDecorator(task2, "12:00", "Friend's House");
+        RecurringDecorator task3dec = new RecurringDecorator(app, task3, 5, "Daily");
+        List sublist = new List("Sublist 1");
+        sublist.addItem(task1);
         mainList.add(task1);
-        mainList.add(task2);
-        mainList.add(task3);
+        mainList.add(task2dec);
+        mainList.add(sublist);
+        mainList.add(task3dec);
         // Make the checkBoxes
         for (Item task : mainList) {
-            checkBoxes.add(new JCheckBox(task.display()));
-        }
-        // put the check boxes on the screen
-        for (JCheckBox checkBox : checkBoxes) {
-            list.add(checkBox);
+            if (task instanceof Task) {
+                list.add(new TaskCheckBox((Task)task));
+            }
+            else if (task instanceof List) {
+                list.add(new SubListPanel((List)task));
+            }
         }
         // Print the add new task button
         newTaskButton = new JButton("+");
@@ -107,4 +113,40 @@ public class ListScreen extends JPanel implements ActionListener {
             app.openCreateListDialog();
         }
     }
+
+    class TaskCheckBox extends JCheckBox implements ActionListener {
+        private Task task;
+
+        public TaskCheckBox(Task task) {
+            super(task.display());
+            this.task = task;
+            setActionCommand("check");
+            addActionListener(this);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            if (e.getActionCommand().equals("check")) {
+                task.completeTask();
+            }
+        }
+
+    }
+
+    class SubListPanel extends JPanel {
+        public SubListPanel(List list) {
+            super();
+            setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+            JLabel desc = new JLabel(list.display());
+            add(desc);
+            for (Item task : list.getItems()) {
+                if (task instanceof Task) {
+                    add(new TaskCheckBox((Task)task));
+                }
+                else if (task instanceof List) {
+                    add(new SubListPanel((List)task));
+                }
+            }
+        }
+    }
+
 }

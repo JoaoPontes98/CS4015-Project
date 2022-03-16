@@ -48,4 +48,11 @@ public class RecurringDecorator extends TaskDecorator {
         }
     }
 
+    @Override
+    public String display() {
+        String str = super.task.display();
+        str += " [ " + type + " - " + recurrence + " left ] ";
+        return str;
+    }
+
 }

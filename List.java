@@ -24,13 +24,11 @@ public class List implements Item {
         return date;
     }
 
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
     public String display() {
-        String str = "";
-
-        for (Item item : items) {
-            str += item.display();
-        }
-
-        return str;
+        return description;
     }
 }
