@@ -35,12 +35,10 @@ public class ListScreen extends JPanel implements ActionListener{
         // Header init
         header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
-        prevButton = new JButton("<");
         dateLabel = new JLabel("02/05/2022"); // Needs to be updated with current date
-        nextButton = new JButton(">");
-        header.add(prevButton);
+        dateLabel.setAlignmentX(0.5f);
         header.add(dateLabel);
-        header.add(nextButton);
+        header.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // List init
         list = new JPanel();
@@ -61,18 +59,31 @@ public class ListScreen extends JPanel implements ActionListener{
         }
         //Print the add new task button
         newTaskButton = new JButton("+");
-        list .add(newTaskButton);
+        list.add(newTaskButton);
+
+        list.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        list.setAlignmentX(0.0f);
 
         // footer init
         footer = new JPanel();
         footer.setLayout(new BoxLayout(footer, BoxLayout.LINE_AXIS));
         browseButton = new JButton("Browse");
-        createButton = new JButton("Create New Todo List");
+        createButton = new JButton("Create New");
         footer.add(browseButton);
+        footer.add(Box.createRigidArea(new Dimension(20, 0)));
         footer.add(createButton);
+        footer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JPanel listHolder = new JPanel();
+        listHolder.setLayout(new BoxLayout(listHolder, BoxLayout.LINE_AXIS));
+
+        listHolder.add(list);
+        listHolder.add(Box.createHorizontalGlue());
+        listHolder.add(Box.createRigidArea(new Dimension(20, 0)));
 
         add(header);
-        add(list);
+        add(listHolder);
+        add(Box.createVerticalGlue());
         add(footer);
 
         frame.add(this);
