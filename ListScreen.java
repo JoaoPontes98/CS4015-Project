@@ -24,18 +24,23 @@ public class ListScreen extends JPanel implements ActionListener{
     private JButton createButton;
 
     private App app;
+    private List listToDisplay;
 
     private ArrayList<Item> mainList = new ArrayList<Item>();
     private ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
 
-    public ListScreen(App app, JFrame frame){
+    public ListScreen(App app, JFrame frame, List listToDisplay){
         this.app = app;
+        this.listToDisplay = listToDisplay;
+        app.setCurrentDisplay(this);
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         // Header init
         header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
-        dateLabel = new JLabel("02/05/2022"); // Needs to be updated with current date
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        String date = format.format(listToDisplay.getDate());
+        dateLabel = new JLabel(date); // Needs to be updated with current date
         dateLabel.setAlignmentX(0.5f);
         header.add(dateLabel);
         header.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
