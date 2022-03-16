@@ -13,7 +13,7 @@ public class AppointmentDecorator extends TaskDecorator {
     @Override
     public String display() {
         String str = super.task.display();
-        str += "[" + location + "-" + time + "]";
+        str += " [ " + location + " - " + time + " ] ";
         return str;
     }
 }
