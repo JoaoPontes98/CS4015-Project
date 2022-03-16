@@ -23,8 +23,7 @@ public class App {
         currentDate.setMinutes(0);
         currentDate.setSeconds(0);
 
-        List firstList = new List(currentDate);
-        displayList(firstList);
+        createNewList(currentDate);
         mainFrame.setVisible(true);
         mainFrame.pack();
     }

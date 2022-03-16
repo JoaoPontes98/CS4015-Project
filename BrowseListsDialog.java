@@ -88,12 +88,9 @@ public class BrowseListsDialog extends JDialog implements ActionListener {
                     date.setMinutes(0);
                     date.setSeconds(0);
 
-                    app.createNewList(date);
-
                     for (List list : app.getMainList()) {
                         if (list.getDate().equals(date)) {
                             app.displayList(list);
-                            break;
                         }
                     }
                 }
