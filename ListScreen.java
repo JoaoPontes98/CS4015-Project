@@ -6,19 +6,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.text.ParseException;
 
-
-public class ListScreen extends JPanel implements ActionListener{
-    //Header
+public class ListScreen extends JPanel implements ActionListener {
+    // Header
     private JPanel header;
     private JLabel dateLabel;
     private JButton prevButton;
     private JButton nextButton;
 
-    //List
+    // List
     private JPanel list;
     private JButton newTaskButton;
 
-    //Footer
+    // Footer
     private JPanel footer;
     private JButton browseButton;
     private JButton createButton;
@@ -29,7 +28,7 @@ public class ListScreen extends JPanel implements ActionListener{
     private ArrayList<Item> mainList = new ArrayList<Item>();
     private ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
 
-    public ListScreen(App app, JFrame frame, List listToDisplay){
+    public ListScreen(App app, JFrame frame, List listToDisplay) {
         this.app = app;
         this.listToDisplay = listToDisplay;
         app.setCurrentDisplay(this);
@@ -54,16 +53,17 @@ public class ListScreen extends JPanel implements ActionListener{
         mainList.add(task1);
         mainList.add(task2);
         mainList.add(task3);
-        //Make the checkBoxes
-        for (Item task: mainList) {
+        // Make the checkBoxes
+        for (Item task : mainList) {
             checkBoxes.add(new JCheckBox(task.display()));
         }
-        //put the check boxes on the screen
-        for (JCheckBox checkBox: checkBoxes){
+        // put the check boxes on the screen
+        for (JCheckBox checkBox : checkBoxes) {
             list.add(checkBox);
         }
-        //Print the add new task button
+        // Print the add new task button
         newTaskButton = new JButton("+");
+        AddTaskMenu addTaskMenu = new AddTaskMenu(app, newTaskButton);
         list.add(newTaskButton);
 
         list.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -103,8 +103,7 @@ public class ListScreen extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Browse")) {
             app.openBrowseListsDialog();
-        }
-        else if (e.getActionCommand().equals("Create New")) {
+        } else if (e.getActionCommand().equals("Create New")) {
             app.openCreateListDialog();
         }
     }
