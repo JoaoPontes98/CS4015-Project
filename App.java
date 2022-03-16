@@ -31,6 +31,10 @@ public class App {
         return mainList;
     }
 
+    public List getCurrentList() {
+        return currentList;
+    }
+
     public void displayList(List list) {
         currentList = list;
         ListScreen page = new ListScreen(getMainFrame());
@@ -63,7 +67,7 @@ public class App {
             newTask = new AppointmentDecorator(newTask, time, place);
         }
         if (isRecurring) {
-            newTask = new RecurringDecorator(newTask, recurrenceNumber, recurrenceType);
+            newTask = new RecurringDecorator(this, newTask, recurrenceNumber, recurrenceType);
         }
 
         currentList.addItem(newTask);
