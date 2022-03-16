@@ -22,11 +22,11 @@ public class RecurringDecorator extends TaskDecorator {
 
             switch(type) {
                 case "Daily":
-                    currentDate.setDate(currentDate.getDay() + 1);
+                    currentDate.setDate(currentDate.getDate() + 1);
                 case "Weekly":
-                    currentDate.setDate(currentDate.getDay() + 7);
+                    currentDate.setDate(currentDate.getDate() + 7);
                 case "Bi-Weekly":
-                    currentDate.setDate(currentDate.getDay() + 14);
+                    currentDate.setDate(currentDate.getDate() + 14);
                 case "Monthly":
                     currentDate.setMonth(currentDate.getMonth() + 1);
             }
@@ -34,7 +34,9 @@ public class RecurringDecorator extends TaskDecorator {
             ArrayList<List> allLists = app.getMainList();
 
             for (List list : allLists) {
-                if (list.getDate().equals(currentDate)) {
+                if (list.getDate().getYear() == currentDate.getYear() &&
+                    list.getDate().getMonth() == currentDate.getMonth() &&
+                    list.getDate().getDate() == currentDate.getDate()) {
                     list.addItem(this);
                     return;
                 }
