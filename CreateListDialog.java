@@ -9,6 +9,7 @@ public class CreateListDialog extends JDialog implements ActionListener {
     private App app;
     private JLabel mainLabel;
     private JTextField dateField;
+    private JCheckBox copyCurrCheckBox;
     private JButton okButton;
     private JButton cancelButton;
 
@@ -19,12 +20,14 @@ public class CreateListDialog extends JDialog implements ActionListener {
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
 
-        mainLabel = new JLabel("Please enter a date:", JLabel.CENTER);
+        mainLabel = new JLabel("Please enter a date: (YYYY/MM/DD)", JLabel.CENTER);
         mainLabel.setAlignmentX(0.5f);
 
         dateField = new JTextField(10);
         dateField.setMaximumSize(new Dimension(150, 25));
         dateField.setAlignmentX(0.5f);
+        copyCurrCheckBox = new JCheckBox("Copy Current List");
+        copyCurrCheckBox.setAlignmentX(0.5f);
 
         okButton = new JButton("OK");
         okButton.setActionCommand("OK");
@@ -40,6 +43,7 @@ public class CreateListDialog extends JDialog implements ActionListener {
         inputPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         inputPanel.add(dateField);
         inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        inputPanel.add(copyCurrCheckBox);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
@@ -63,12 +67,17 @@ public class CreateListDialog extends JDialog implements ActionListener {
 
             if (dateString != null) {
                 try {
+                    // Is this where we're doing prototype, or somewhere else???
+                    List prevList = app.getCurrentList(); //in case copy list
                     Date date = format.parse(dateString);
                     date.setHours(0);
                     date.setMinutes(0);
                     date.setSeconds(0);
 
                     app.createNewList(date);
+                    if(copyCurrCheckBox.isSelected()){
+                        app.setCurrentList(prevList);
+                    }
                 }
                 catch (ParseException e) {
                     e.printStackTrace();
