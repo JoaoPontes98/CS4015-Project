@@ -40,8 +40,10 @@ public class App {
         return currentList;
     }
 
-    public void setCurrentList(List newList) {
-        this.currentList = newList;
+    public void setCurrentListItems(ArrayList<Item> items) {
+        for (Item item: items) {
+            this.currentList.addItem(item);
+        }
     }
 
     public void setCurrentDisplay(JPanel panel) {

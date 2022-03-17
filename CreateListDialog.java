@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.ParseException;
 
@@ -68,7 +69,7 @@ public class CreateListDialog extends JDialog implements ActionListener {
             if (dateString != null) {
                 try {
                     // Is this where we're doing prototype, or somewhere else???
-                    List prevList = app.getCurrentList(); //in case copy list
+                    ArrayList<Item> prevListItems = app.getCurrentList().getItems(); //in case copy list
                     Date date = format.parse(dateString);
                     date.setHours(0);
                     date.setMinutes(0);
@@ -76,7 +77,7 @@ public class CreateListDialog extends JDialog implements ActionListener {
 
                     app.createNewList(date);
                     if(copyCurrCheckBox.isSelected()){
-                        app.setCurrentList(prevList);
+                        app.setCurrentListItems(prevListItems);
                     }
                 }
                 catch (ParseException e) {
