@@ -53,6 +53,9 @@ public class ListScreen extends JPanel implements ActionListener {
         AppointmentDecorator task2dec = new AppointmentDecorator(task2, "12:00", "Friend's House");
         RecurringDecorator task3dec = new RecurringDecorator(app, task3, 5, "Daily");
         List sublist = new List("Sublist 1");
+        List sublist2 = new List("Sublist 2");
+        sublist2.addItem(task3dec);
+        sublist.addItem(sublist2);
         sublist.addItem(task1);
         mainList.add(task1);
         mainList.add(task2dec);
@@ -64,7 +67,12 @@ public class ListScreen extends JPanel implements ActionListener {
                 list.add(new TaskCheckBox((Task)task));
             }
             else if (task instanceof List) {
-                list.add(new SubListPanel((List)task));
+                JPanel sublistHolder = new JPanel();
+                sublistHolder.setLayout(new BoxLayout(sublistHolder, BoxLayout.LINE_AXIS));
+                sublistHolder.add(Box.createRigidArea(new Dimension(25, 0)));
+                sublistHolder.add(new SubListPanel((List)task));
+                sublistHolder.setAlignmentX(0.0f);
+                list.add(sublistHolder);
             }
         }
         // Print the add new task button
@@ -93,8 +101,6 @@ public class ListScreen extends JPanel implements ActionListener {
         listHolder.setLayout(new BoxLayout(listHolder, BoxLayout.LINE_AXIS));
 
         listHolder.add(list);
-        listHolder.add(Box.createHorizontalGlue());
-        listHolder.add(Box.createRigidArea(new Dimension(20, 0)));
 
         add(header);
         add(listHolder);
@@ -143,7 +149,12 @@ public class ListScreen extends JPanel implements ActionListener {
                     add(new TaskCheckBox((Task)task));
                 }
                 else if (task instanceof List) {
-                    add(new SubListPanel((List)task));
+                    JPanel sublistHolder = new JPanel();
+                    sublistHolder.setLayout(new BoxLayout(sublistHolder, BoxLayout.LINE_AXIS));
+                    sublistHolder.add(Box.createRigidArea(new Dimension(25, 0)));
+                    sublistHolder.add(new SubListPanel((List)task));
+                    sublistHolder.setAlignmentX(0.0f);
+                    add(sublistHolder);
                 }
             }
         }
