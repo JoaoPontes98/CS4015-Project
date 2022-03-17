@@ -8,11 +8,13 @@ public class List implements Item {
 
     public List(Date date) {
         this.date = date;
+        this.description = null;
         this.items = new ArrayList<Item>();
     }
 
     public List(String description) {
         this.description = description;
+        this.date = null;
         this.items = new ArrayList<Item>();
     }
 
@@ -30,5 +32,27 @@ public class List implements Item {
 
     public String display() {
         return description;
+    }
+
+    public boolean isComplete() {
+        for (Item item : items) {
+            if (!item.isComplete()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void completeTask() {
+        for (Item item: items) {
+            item.completeTask();
+        }
+    }
+
+    public void uncompleteTask() {
+        for (Item item: items) {
+            item.uncompleteTask();
+        }
     }
 }

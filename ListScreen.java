@@ -57,6 +57,7 @@ public class ListScreen extends JPanel implements ActionListener {
         sublist2.addItem(task3dec);
         sublist.addItem(sublist2);
         sublist.addItem(task1);
+        sublist2.completeTask();
         mainList.add(task1);
         mainList.add(task2dec);
         mainList.add(sublist);
@@ -70,7 +71,7 @@ public class ListScreen extends JPanel implements ActionListener {
                 JPanel sublistHolder = new JPanel();
                 sublistHolder.setLayout(new BoxLayout(sublistHolder, BoxLayout.LINE_AXIS));
                 sublistHolder.add(Box.createRigidArea(new Dimension(25, 0)));
-                sublistHolder.add(new SubListPanel((List)task));
+                sublistHolder.add(new SubListPanel((List)task, null));
                 sublistHolder.setAlignmentX(0.0f);
                 list.add(sublistHolder);
             }
@@ -121,38 +122,58 @@ public class ListScreen extends JPanel implements ActionListener {
     }
 
     class TaskCheckBox extends JCheckBox implements ActionListener {
-        private Task task;
+        private Item task;
 
-        public TaskCheckBox(Task task) {
+        public TaskCheckBox(Item task) {
             super(task.display());
             this.task = task;
             setActionCommand("check");
             addActionListener(this);
+
+            if (task.isComplete()) {
+                setSelected(true);
+            }
         }
 
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals("check")) {
-                task.completeTask();
+                JCheckBox source = (JCheckBox) e.getSource();
+                if (source.isSelected()) {
+                    setSelected(true);
+                    task.completeTask();
+                }
+                else {
+                    setSelected(false);
+                    task.uncompleteTask();
+                }
             }
         }
-
     }
 
     class SubListPanel extends JPanel {
-        public SubListPanel(List list) {
+        public SubListPanel(List list, TaskCheckBox parentList) {
             super();
             setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-            JLabel desc = new JLabel(list.display());
+            TaskCheckBox desc = new TaskCheckBox(list);
             add(desc);
+            if (parentList != null) {
+                parentList.addActionListener(desc);
+            }
+
             for (Item task : list.getItems()) {
                 if (task instanceof Task) {
-                    add(new TaskCheckBox((Task)task));
+                    TaskCheckBox checkBox = new TaskCheckBox(task);
+                    add(checkBox);
+                    desc.addActionListener(checkBox);
+                    if (parentList != null) {
+                        parentList.addActionListener(checkBox);
+                    }
                 }
                 else if (task instanceof List) {
                     JPanel sublistHolder = new JPanel();
                     sublistHolder.setLayout(new BoxLayout(sublistHolder, BoxLayout.LINE_AXIS));
                     sublistHolder.add(Box.createRigidArea(new Dimension(25, 0)));
-                    sublistHolder.add(new SubListPanel((List)task));
+                    sublistHolder.add(new SubListPanel((List)task, desc));
                     sublistHolder.setAlignmentX(0.0f);
                     add(sublistHolder);
                 }
