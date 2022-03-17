@@ -10,7 +10,23 @@ public class App {
     
     public static void main(String[] args) {
         App app = new App();
-        List list = new List(new Date());
+        Date date = new Date();
+        date.setDate(date.getDate() + 1);
+        List list = new List(date);
+        BasicTask task1 = new BasicTask("Feed Cat");
+        BasicTask task2 = new BasicTask("Feed Friend's Cat");
+        BasicTask task3 = new BasicTask("Feed Mom's Cat");
+        AppointmentDecorator task2dec = new AppointmentDecorator(task2, "12:00", "Friend's House");
+        RecurringDecorator task3dec = new RecurringDecorator(app, task3, 5, "Daily");
+        List sublist = new List("Sublist 1");
+        List sublist2 = new List("Sublist 2");
+        sublist2.addItem(task3dec);
+        sublist.addItem(sublist2);
+        sublist.addItem(task1);
+        list.addItem(task1);
+        list.addItem(task2dec);
+        list.addItem(sublist);
+        app.getMainList().add(list);
         app.displayList(list);
     }
 

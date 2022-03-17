@@ -47,23 +47,8 @@ public class ListScreen extends JPanel implements ActionListener {
         // List init
         list = new JPanel();
         list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
-        BasicTask task1 = new BasicTask("Feed Cat");
-        BasicTask task2 = new BasicTask("Feed Friend's Cat");
-        BasicTask task3 = new BasicTask("Feed Mom's Cat");
-        AppointmentDecorator task2dec = new AppointmentDecorator(task2, "12:00", "Friend's House");
-        RecurringDecorator task3dec = new RecurringDecorator(app, task3, 5, "Daily");
-        List sublist = new List("Sublist 1");
-        List sublist2 = new List("Sublist 2");
-        sublist2.addItem(task3dec);
-        sublist.addItem(sublist2);
-        sublist.addItem(task1);
-        sublist2.completeTask();
-        mainList.add(task1);
-        mainList.add(task2dec);
-        mainList.add(sublist);
-        mainList.add(task3dec);
         // Make the checkBoxes
-        for (Item task : mainList) {
+        for (Item task : listToDisplay.getItems()) {
             if (task instanceof Task) {
                 list.add(new TaskCheckBox((Task)task));
             }
