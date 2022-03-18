@@ -13,38 +13,52 @@ public class RecurringDecorator extends TaskDecorator {
         this.type = type;
     }
 
+    public RecurringDecorator(RecurringDecorator recDec) {
+        super(recDec.getTask());
+        this.app = recDec.getApp();
+        this.recurrence = recDec.getRecurrence();
+        this.type = recDec.getType();
+    }
+
     @Override
     public void completeTask() {
         super.task.completeTask();
         if (recurrence > 0) {
-            recurrence -= 1;
             Date listDate = app.getCurrentList().getDate();
             Date currentDate = (Date) listDate.clone();
 
-            switch(type) {
+            switch (type) {
                 case "Daily":
                     currentDate.setDate(currentDate.getDate() + 1);
+                    break;
                 case "Weekly":
                     currentDate.setDate(currentDate.getDate() + 7);
+                    break;
                 case "Bi-Weekly":
                     currentDate.setDate(currentDate.getDate() + 14);
+                    break;
                 case "Monthly":
                     currentDate.setMonth(currentDate.getMonth() + 1);
+                    break;
             }
+            // System.out.println("This Recurrence = " + this.getRecurrence());
+            RecurringDecorator rd = (RecurringDecorator) this.clone();
+            rd.RecMinusOne();
+            // System.out.println("Recurrence = " + rd.getRecurrence());
+            rd.uncompleteTask();
 
             ArrayList<List> allLists = app.getMainList();
-
             for (List list : allLists) {
                 if (list.getDate().getYear() == currentDate.getYear() &&
-                    list.getDate().getMonth() == currentDate.getMonth() &&
-                    list.getDate().getDate() == currentDate.getDate()) {
-                    list.addItem(this);
+                        list.getDate().getMonth() == currentDate.getMonth() &&
+                        list.getDate().getDate() == currentDate.getDate()) {
+                    list.addItem(rd);
                     return;
                 }
             }
 
             List newList = new List(currentDate);
-            newList.addItem(this);
+            newList.addItem(rd);
             allLists.add(newList);
         }
     }
@@ -56,4 +70,24 @@ public class RecurringDecorator extends TaskDecorator {
         return str;
     }
 
+    @Override
+    public RecurringDecorator clone() {
+        return new RecurringDecorator(this);
+    }
+
+    public int getRecurrence() {
+        return recurrence;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public App getApp() {
+        return app;
+    }
+
+    public void RecMinusOne() {
+        this.recurrence = recurrence - 1;
+    }
 }

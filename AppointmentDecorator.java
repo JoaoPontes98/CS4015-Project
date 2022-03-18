@@ -10,10 +10,29 @@ public class AppointmentDecorator extends TaskDecorator {
         this.location = location;
     }
 
+    public AppointmentDecorator(AppointmentDecorator appDec) {
+        super(appDec.getTask());
+        this.time = appDec.getTime();
+        this.location = appDec.getLocation();
+    }
+
     @Override
     public String display() {
         String str = super.task.display();
         str += " [ " + location + " - " + time + " ] ";
         return str;
+    }
+
+    @Override
+    public AppointmentDecorator clone() {
+        return new AppointmentDecorator(this);
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public String getLocation() {
+        return location;
     }
 }
