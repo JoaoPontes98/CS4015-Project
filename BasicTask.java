@@ -7,6 +7,11 @@ public class BasicTask extends Task {
         this.done = false;
     }
 
+    public BasicTask(BasicTask bt) {
+        this.description = bt.description;
+        this.done = bt.done;
+    }
+
     @Override
     public String display() {
         return description;
@@ -25,5 +30,10 @@ public class BasicTask extends Task {
     @Override
     public boolean isComplete() {
         return done;
+    }
+
+    @Override
+    public BasicTask clone() {
+        return new BasicTask(this);
     }
 }

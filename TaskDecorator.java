@@ -5,6 +5,10 @@ public class TaskDecorator extends Task {
         this.task = task;
     }
 
+    public TaskDecorator(TaskDecorator tasDec) {
+        this.task = tasDec.getTask();
+    }
+
     public String display() {
         return task.display();
     }
@@ -19,5 +23,14 @@ public class TaskDecorator extends Task {
 
     public boolean isComplete() {
         return task.isComplete();
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    @Override
+    public TaskDecorator clone() {
+        return new TaskDecorator(this);
     }
 }
