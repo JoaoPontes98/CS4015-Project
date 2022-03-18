@@ -18,7 +18,8 @@ public class RecurringDecorator extends TaskDecorator {
         super.task.completeTask();
         if (recurrence > 0) {
             recurrence -= 1;
-            Date currentDate = app.getCurrentList().getDate();
+            Date listDate = app.getCurrentList().getDate();
+            Date currentDate = (Date) listDate.clone();
 
             switch(type) {
                 case "Daily":

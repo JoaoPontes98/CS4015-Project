@@ -14,6 +14,16 @@ public class BasicTask extends Task {
 
     @Override
     public void completeTask() {
-        this.done = !done;
+        this.done = true;
+    }
+
+    @Override
+    public void uncompleteTask() {
+        this.done = false;
+    }
+
+    @Override
+    public boolean isComplete() {
+        return done;
     }
 }

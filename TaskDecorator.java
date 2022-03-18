@@ -12,4 +12,12 @@ public class TaskDecorator extends Task {
     public void completeTask() {
         task.completeTask();
     }
+
+    public void uncompleteTask() {
+        task.uncompleteTask();
+    }
+
+    public boolean isComplete() {
+        return task.isComplete();
+    }
 }
