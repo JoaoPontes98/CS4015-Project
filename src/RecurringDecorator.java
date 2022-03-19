@@ -20,6 +20,22 @@ public class RecurringDecorator extends TaskDecorator {
         this.type = recDec.getType();
     }
 
+    public int getRecurrence() {
+        return recurrence;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public App getApp() {
+        return app;
+    }
+
+    public void recMinusOne() {
+        this.recurrence = recurrence - 1;
+    }
+
     @Override
     public void completeTask() {
         task.completeTask();
@@ -71,21 +87,5 @@ public class RecurringDecorator extends TaskDecorator {
     @Override
     public RecurringDecorator clone() {
         return new RecurringDecorator(this);
-    }
-
-    public int getRecurrence() {
-        return recurrence;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public App getApp() {
-        return app;
-    }
-
-    public void recMinusOne() {
-        this.recurrence = recurrence - 1;
     }
 }

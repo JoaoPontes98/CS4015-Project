@@ -9,8 +9,16 @@ public class TaskDecorator extends Task {
         this.task = tasDec.getTask().clone();
     }
 
+    public Task getTask() {
+        return task;
+    }
+
     public String display() {
         return task.display();
+    }
+
+    public boolean isComplete() {
+        return task.isComplete();
     }
 
     public void completeTask() {
@@ -19,14 +27,6 @@ public class TaskDecorator extends Task {
 
     public void uncompleteTask() {
         task.uncompleteTask();
-    }
-
-    public boolean isComplete() {
-        return task.isComplete();
-    }
-
-    public Task getTask() {
-        return task;
     }
 
     @Override

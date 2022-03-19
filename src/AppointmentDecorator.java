@@ -16,6 +16,14 @@ public class AppointmentDecorator extends TaskDecorator {
         this.location = appDec.getLocation();
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
     @Override
     public String display() {
         String str = super.task.display();
@@ -26,13 +34,5 @@ public class AppointmentDecorator extends TaskDecorator {
     @Override
     public AppointmentDecorator clone() {
         return new AppointmentDecorator(this);
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public String getLocation() {
-        return location;
     }
 }

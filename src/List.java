@@ -18,16 +18,16 @@ public class List implements Item {
         this.items = new ArrayList<Item>();
     }
 
-    public void addItem(Item item) {
-        items.add(item);
-    }
-
     public Date getDate() {
         return date;
     }
 
     public ArrayList<Item> getItems() {
         return items;
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
     }
 
     public String display() {

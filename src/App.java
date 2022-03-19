@@ -35,9 +35,6 @@ public class App {
         mainFrame = new JFrame();
 
         Date currentDate = new Date();
-        currentDate.setHours(0);
-        currentDate.setMinutes(0);
-        currentDate.setSeconds(0);
 
         createNewList(currentDate);
         mainFrame.setVisible(true);
@@ -72,18 +69,24 @@ public class App {
         CreateListDialog dialog = new CreateListDialog(this, getMainFrame());
     }
 
-    public void createNewList(Date date) {
-        List list = new List(date);
-        mainList.add(list);
-        displayList(list);
-    }
-
     public void openBrowseListsDialog() {
         BrowseListsDialog dialog = new BrowseListsDialog(this, getMainFrame());
     }
 
     public void openCreateTaskDialog(List list) {
         CreateTaskDialog dialog = new CreateTaskDialog(this, getMainFrame(), list);
+    }
+
+    public void createNewList(Date date) {
+        List list = new List(date);
+        mainList.add(list);
+        displayList(list);
+    }
+
+    public void createNewSublist(List list, String description) {
+        List subList = new List(description);
+        list.addItem(subList);
+        displayList(currentList);
     }
 
     public void createNewTask(List list, String description, boolean isRecurring, boolean isAppointment, int recurrenceNumber, 
@@ -101,12 +104,4 @@ public class App {
         list.addItem(newTask);
         displayList(currentList);
     }
-
-    public void createNewSublist(List list, String description) {
-        List subList = new List(description);
-        list.addItem(subList);
-        displayList(currentList);
-    }
-
-    
 }
