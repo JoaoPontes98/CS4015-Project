@@ -6,6 +6,4 @@ public interface Item {
     void completeTask();
 
     void uncompleteTask();
-
-    // Item clone();
 }

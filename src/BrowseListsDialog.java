@@ -8,11 +8,7 @@ import java.util.ArrayList;
 
 public class BrowseListsDialog extends JDialog implements ActionListener {
     private App app;
-    private JLabel mainLabel;
     private JList<String> datesList;
-    private JScrollPane scroller;
-    private JButton okButton;
-    private JButton cancelButton;
 
     public BrowseListsDialog(App app, JFrame frame) {
         super(frame);
@@ -20,15 +16,27 @@ public class BrowseListsDialog extends JDialog implements ActionListener {
 
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
-        
 
-        ArrayList<List> mainList = app.getMainList();
+        JPanel inputs = createInputsPanel();
+        JPanel buttons = createButtonsPanel();
+
+        contentPane.add(inputs);
+        contentPane.add(buttons);
+
+        setContentPane(contentPane);
+        pack();
+        setVisible(true);
+    }
+
+    private JPanel createInputsPanel() {
+        JPanel inputs = new JPanel();
+        inputs.setLayout(new BoxLayout(inputs, BoxLayout.PAGE_AXIS));
 
         ArrayList<String> mainListAsStrings = new ArrayList<String>();
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 
-        for (List list : mainList) {
+        for (List list : app.getMainList()) {
             String date = format.format(list.getDate());
             mainListAsStrings.add(date);
         }
@@ -36,43 +44,41 @@ public class BrowseListsDialog extends JDialog implements ActionListener {
         String[] arr = new String[mainListAsStrings.size()];
         mainListAsStrings.toArray(arr);
 
-        mainLabel = new JLabel("Please select a date:", JLabel.CENTER);
+        JLabel mainLabel = new JLabel("Please select a date:", JLabel.CENTER);
         mainLabel.setAlignmentX(0.5f);
 
         datesList = new JList<String>(arr);
 
-        scroller = new JScrollPane(datesList);
+        JScrollPane scroller = new JScrollPane(datesList);
         scroller.setAlignmentX(0.5f);
         scroller.setPreferredSize(new Dimension(150, 150));
-        
-        okButton = new JButton("OK");
+
+        inputs.add(mainLabel);
+        inputs.add(Box.createRigidArea(new Dimension(0, 10)));
+        inputs.add(scroller);
+        inputs.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        return inputs;
+    }
+
+    private JPanel createButtonsPanel() {
+        JPanel buttons = new JPanel();
+        buttons.setLayout(new BoxLayout(buttons, BoxLayout.LINE_AXIS));
+
+        JButton okButton = new JButton("OK");
         okButton.setActionCommand("OK");
         okButton.addActionListener(this);
 
-        cancelButton = new JButton("Cancel");
+        JButton cancelButton = new JButton("Cancel");
         cancelButton.setActionCommand("Cancel");
         cancelButton.addActionListener(this);
 
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.PAGE_AXIS));
-        inputPanel.add(mainLabel);
-        inputPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        inputPanel.add(scroller);
-        inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        buttons.add(okButton);
+        buttons.add(Box.createRigidArea(new Dimension(20, 0)));
+        buttons.add(cancelButton);
+        buttons.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
-        buttonPanel.add(okButton);
-        buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-        buttonPanel.add(cancelButton);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        contentPane.add(inputPanel);
-        contentPane.add(buttonPanel);
-
-        setContentPane(contentPane);
-        pack();
-        setVisible(true);
+        return buttons;
     }
 
     public void actionPerformed(ActionEvent event) {
@@ -84,32 +90,30 @@ public class BrowseListsDialog extends JDialog implements ActionListener {
             if (dateString != null) {
                 try {
                     date = format.parse(dateString);
-                    date.setHours(0);
-                    date.setMinutes(0);
-                    date.setSeconds(0);
 
                     for (List list : app.getMainList()) {
                         if (list.getDate().getYear() == date.getYear() &&
                             list.getDate().getMonth() == date.getMonth() &&
                             list.getDate().getDate() == date.getDate()) {
                             app.displayList(list);
+                            break;
                         }
                     }
                 }
                 catch (ParseException e) {
-                    e.printStackTrace();
+                    System.out.println("Error: Could not parse date.");
                 }
             }
 
-            datesList.setSelectedIndex(0);
-            setVisible(false);
+            close();
         }
         else if (event.getActionCommand().equals("Cancel")) {
-            datesList.setSelectedIndex(0);
-            setVisible(false);
+            close();
         }
-
     }
 
-
+    private void close() {
+        datesList.setSelectedIndex(0);
+        setVisible(false);
+    }
 }

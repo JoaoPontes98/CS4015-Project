@@ -18,6 +18,11 @@ public class BasicTask extends Task {
     }
 
     @Override
+    public boolean isComplete() {
+        return done;
+    }
+
+    @Override
     public void completeTask() {
         this.done = true;
     }
@@ -25,11 +30,6 @@ public class BasicTask extends Task {
     @Override
     public void uncompleteTask() {
         this.done = false;
-    }
-
-    @Override
-    public boolean isComplete() {
-        return done;
     }
 
     @Override
