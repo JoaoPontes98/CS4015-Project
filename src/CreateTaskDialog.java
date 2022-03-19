@@ -2,8 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class CreateTaskDialog extends JDialog implements ActionListener {
-    private App app;
+public class CreateTaskDialog extends AppDialog {
     private JTextField descriptionField;
     private JCheckBox recurringCheckBox;
     private JCheckBox appointmentCheckBox;
@@ -16,25 +15,11 @@ public class CreateTaskDialog extends JDialog implements ActionListener {
     private List list;
 
     public CreateTaskDialog(App app, JFrame frame, List list) {
-        super(frame);
-        this.app = app;
+        super(frame, app);
         this.list = list;
-
-        JPanel contentPane = new JPanel();
-        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
-
-        JPanel inputs = createInputsPanel();
-        JPanel buttons = createButtonsPanel();
-
-        contentPane.add(inputs);
-        contentPane.add(buttons);
-        
-        setContentPane(contentPane);
-        pack();
-        setVisible(true);
     }
 
-    private JPanel createInputsPanel() {
+    protected JPanel createInputsPanel() {
         JPanel inputs = new JPanel();
         inputs.setLayout(new BoxLayout(inputs, BoxLayout.PAGE_AXIS));
         inputs.setAlignmentX(0.0f);
@@ -74,7 +59,7 @@ public class CreateTaskDialog extends JDialog implements ActionListener {
         return inputs;
     }
 
-    private JPanel createButtonsPanel() {
+    protected JPanel createButtonsPanel() {
         JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.LINE_AXIS));
         buttons.setAlignmentX(0.0f);

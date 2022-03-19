@@ -5,29 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
 
-public class CreateListDialog extends JDialog implements ActionListener {
-    private App app;
+public class CreateListDialog extends AppDialog {
     private JTextField dateField;
 
     public CreateListDialog(App app, JFrame frame) {
-        super(frame);
-        this.app = app;
-
-        JPanel contentPane = new JPanel();
-        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
-
-        JPanel inputs = createInputsPanel();
-        JPanel buttons = createButtonsPanel();
-
-        contentPane.add(inputs);
-        contentPane.add(buttons);
-
-        setContentPane(contentPane);
-        pack();
-        setVisible(true);
+        super(frame, app);
     }
 
-    private JPanel createInputsPanel() {
+    protected JPanel createInputsPanel() {
         JPanel inputs = new JPanel();
         inputs.setLayout(new BoxLayout(inputs, BoxLayout.PAGE_AXIS));
 
@@ -46,7 +31,7 @@ public class CreateListDialog extends JDialog implements ActionListener {
         return inputs;
     }
 
-    private JPanel createButtonsPanel() {
+    protected JPanel createButtonsPanel() {
         JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.LINE_AXIS));
 

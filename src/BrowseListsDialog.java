@@ -6,29 +6,14 @@ import java.util.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class BrowseListsDialog extends JDialog implements ActionListener {
-    private App app;
+public class BrowseListsDialog extends AppDialog {
     private JList<String> datesList;
 
     public BrowseListsDialog(App app, JFrame frame) {
-        super(frame);
-        this.app = app;
-
-        JPanel contentPane = new JPanel();
-        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
-
-        JPanel inputs = createInputsPanel();
-        JPanel buttons = createButtonsPanel();
-
-        contentPane.add(inputs);
-        contentPane.add(buttons);
-
-        setContentPane(contentPane);
-        pack();
-        setVisible(true);
+        super(frame, app);
     }
 
-    private JPanel createInputsPanel() {
+    protected JPanel createInputsPanel() {
         JPanel inputs = new JPanel();
         inputs.setLayout(new BoxLayout(inputs, BoxLayout.PAGE_AXIS));
 
@@ -61,7 +46,7 @@ public class BrowseListsDialog extends JDialog implements ActionListener {
         return inputs;
     }
 
-    private JPanel createButtonsPanel() {
+    protected JPanel createButtonsPanel() {
         JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.LINE_AXIS));
 
