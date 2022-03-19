@@ -56,15 +56,15 @@ public class ListScreen extends JPanel implements ActionListener {
                 JPanel sublistHolder = new JPanel();
                 sublistHolder.setLayout(new BoxLayout(sublistHolder, BoxLayout.LINE_AXIS));
                 sublistHolder.add(Box.createRigidArea(new Dimension(25, 0)));
-                sublistHolder.add(new SubListPanel((List)task, null));
+                sublistHolder.add(new SubListPanel((List)task, null, app));
                 sublistHolder.setAlignmentX(0.0f);
                 list.add(sublistHolder);
             }
         }
+
         // Print the add new task button
-        newTaskButton = new JButton("+");
-        AddTaskMenu addTaskMenu = new AddTaskMenu(app, newTaskButton);
-        list.add(newTaskButton);
+        list.add(new PlusButton(listToDisplay, app));
+        list.add(Box.createRigidArea(new Dimension(0, 10)));
 
         list.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         list.setAlignmentX(0.0f);
@@ -136,7 +136,7 @@ public class ListScreen extends JPanel implements ActionListener {
     }
 
     class SubListPanel extends JPanel {
-        public SubListPanel(List list, TaskCheckBox parentList) {
+        public SubListPanel(List list, TaskCheckBox parentList, App app) {
             super();
             setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
             TaskCheckBox desc = new TaskCheckBox(list);
@@ -158,11 +158,26 @@ public class ListScreen extends JPanel implements ActionListener {
                     JPanel sublistHolder = new JPanel();
                     sublistHolder.setLayout(new BoxLayout(sublistHolder, BoxLayout.LINE_AXIS));
                     sublistHolder.add(Box.createRigidArea(new Dimension(25, 0)));
-                    sublistHolder.add(new SubListPanel((List)task, desc));
+                    sublistHolder.add(new SubListPanel((List)task, desc, app));
                     sublistHolder.setAlignmentX(0.0f);
                     add(sublistHolder);
                 }
             }
+            add(new PlusButton(list, app));
+            add(Box.createRigidArea(new Dimension(0, 10)));
+        }
+    }
+
+    class PlusButton extends JButton {
+        List list;
+
+        public PlusButton(List list, App app) {
+            super("Add");
+            this.list = list;
+            AddTaskMenu addTaskMenu = new AddTaskMenu(app, this, list); 
+            Font font = new Font("Arial", Font.PLAIN, 8);
+            setFont(font);
+            setPreferredSize(new Dimension(20, 20));
         }
     }
 

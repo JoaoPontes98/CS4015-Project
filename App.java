@@ -82,11 +82,11 @@ public class App {
         BrowseListsDialog dialog = new BrowseListsDialog(this, getMainFrame());
     }
 
-    public void openCreateTaskDialog() {
-        CreateTaskDialog dialog = new CreateTaskDialog(this, getMainFrame());
+    public void openCreateTaskDialog(List list) {
+        CreateTaskDialog dialog = new CreateTaskDialog(this, getMainFrame(), list);
     }
 
-    public void createNewTask(String description, boolean isRecurring, boolean isAppointment, int recurrenceNumber, 
+    public void createNewTask(List list, String description, boolean isRecurring, boolean isAppointment, int recurrenceNumber, 
                                 String recurrenceType, String time, String place) {
 
         Task newTask = new BasicTask(description);
@@ -98,13 +98,13 @@ public class App {
             newTask = new RecurringDecorator(this, newTask, recurrenceNumber, recurrenceType);
         }
 
-        currentList.addItem(newTask);
+        list.addItem(newTask);
         displayList(currentList);
     }
 
-    public void createNewSublist(String description) {
-        List list = new List(description);
-        currentList.addItem(list);
+    public void createNewSublist(List list, String description) {
+        List subList = new List(description);
+        list.addItem(subList);
         displayList(currentList);
     }
 

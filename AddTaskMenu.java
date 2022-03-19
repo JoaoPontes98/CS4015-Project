@@ -6,8 +6,10 @@ public class AddTaskMenu extends JPopupMenu implements ActionListener {
     private App app;
     private JMenuItem taskItem;
     private JMenuItem sublistItem;
+    private List list;
 
-    public AddTaskMenu(App app, Component component) {
+    public AddTaskMenu(App app, Component component, List list) {
+        this.list = list;
         this.app = app;
 
         taskItem = new JMenuItem("New Task");
@@ -33,11 +35,11 @@ public class AddTaskMenu extends JPopupMenu implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("newTask")) {
-            app.openCreateTaskDialog();
+            app.openCreateTaskDialog(list);
         } else if (e.getActionCommand().equals("newSublist")) {
             String description = (String) JOptionPane.showInputDialog(this, "Please enter a description:",
                     "Create New Sublist", JOptionPane.QUESTION_MESSAGE, null, null, null);
-            app.createNewSublist(description);
+            app.createNewSublist(list, description);
         }
     }
 
