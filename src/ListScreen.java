@@ -32,11 +32,10 @@ public class ListScreen extends JPanel implements ActionListener {
         this.app = app;
         this.listToDisplay = listToDisplay;
         app.setCurrentDisplay(this);
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        setLayout(new BorderLayout());
 
         // Header init
         header = new JPanel();
-        header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         String date = format.format(listToDisplay.getDate());
         dateLabel = new JLabel(date);
@@ -53,17 +52,16 @@ public class ListScreen extends JPanel implements ActionListener {
                 list.add(new TaskCheckBox((Task)task));
             }
             else if (task instanceof List) {
-                JPanel sublistHolder = new JPanel();
-                sublistHolder.setLayout(new BoxLayout(sublistHolder, BoxLayout.LINE_AXIS));
-                sublistHolder.add(Box.createRigidArea(new Dimension(25, 0)));
-                sublistHolder.add(new SubListPanel((List)task, null, app));
-                sublistHolder.setAlignmentX(0.0f);
-                list.add(sublistHolder);
+                list.add(new SubListPanel((List)task, null, app));
             }
         }
 
         // Print the add new task button
-        list.add(new PlusButton(listToDisplay, app));
+        JPanel buttonHolder = new JPanel();
+        buttonHolder.setLayout(new BoxLayout(buttonHolder, BoxLayout.LINE_AXIS));
+        buttonHolder.add(new PlusButton(listToDisplay, app));
+        buttonHolder.setAlignmentX(0.0f);
+        list.add(buttonHolder);
         list.add(Box.createRigidArea(new Dimension(0, 10)));
 
         list.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -71,7 +69,6 @@ public class ListScreen extends JPanel implements ActionListener {
 
         // footer init
         footer = new JPanel();
-        footer.setLayout(new BoxLayout(footer, BoxLayout.LINE_AXIS));
         browseButton = new JButton("Browse");
         browseButton.setActionCommand("Browse");
         browseButton.addActionListener(this);
@@ -83,15 +80,10 @@ public class ListScreen extends JPanel implements ActionListener {
         footer.add(createButton);
         footer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JPanel listHolder = new JPanel();
-        listHolder.setLayout(new BoxLayout(listHolder, BoxLayout.LINE_AXIS));
 
-        listHolder.add(list);
-
-        add(header);
-        add(listHolder);
-        add(Box.createVerticalGlue());
-        add(footer);
+        add(header, BorderLayout.PAGE_START);
+        add(list, BorderLayout.LINE_START);
+        add(footer, BorderLayout.PAGE_END);
 
         frame.add(this);
         frame.pack();
@@ -145,10 +137,23 @@ public class ListScreen extends JPanel implements ActionListener {
                 parentList.addActionListener(desc);
             }
 
+            JPanel taskHolder = new JPanel();
+            taskHolder.setLayout(new BoxLayout(taskHolder, BoxLayout.LINE_AXIS));
+            taskHolder.add(Box.createRigidArea(new Dimension(25, 0)));
+            taskHolder.setAlignmentX(0.0f);
+            
+            add(taskHolder);
+
+            JPanel tasks = new JPanel();
+            tasks.setLayout(new BoxLayout(tasks, BoxLayout.PAGE_AXIS));
+            tasks.setAlignmentX(0.0f);
+
+            taskHolder.add(tasks);
+
             for (Item task : list.getItems()) {
                 if (task instanceof Task) {
                     TaskCheckBox checkBox = new TaskCheckBox(task);
-                    add(checkBox);
+                    tasks.add(checkBox);
                     desc.addActionListener(checkBox);
                     if (parentList != null) {
                         parentList.addActionListener(checkBox);
@@ -156,14 +161,10 @@ public class ListScreen extends JPanel implements ActionListener {
                 }
                 else if (task instanceof List) {
                     JPanel sublistHolder = new JPanel();
-                    sublistHolder.setLayout(new BoxLayout(sublistHolder, BoxLayout.LINE_AXIS));
-                    sublistHolder.add(Box.createRigidArea(new Dimension(25, 0)));
-                    sublistHolder.add(new SubListPanel((List)task, desc, app));
-                    sublistHolder.setAlignmentX(0.0f);
-                    add(sublistHolder);
+                    tasks.add(new SubListPanel((List)task, desc, app));
                 }
             }
-            add(new PlusButton(list, app));
+            tasks.add(new PlusButton(list, app));
             add(Box.createRigidArea(new Dimension(0, 10)));
         }
     }
@@ -177,7 +178,7 @@ public class ListScreen extends JPanel implements ActionListener {
             AddTaskMenu addTaskMenu = new AddTaskMenu(app, this, list); 
             Font font = new Font("Arial", Font.PLAIN, 8);
             setFont(font);
-            setPreferredSize(new Dimension(20, 20));
+            setMinimumSize(new Dimension(20, 20));
         }
     }
 
