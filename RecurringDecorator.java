@@ -14,7 +14,7 @@ public class RecurringDecorator extends TaskDecorator {
     }
 
     public RecurringDecorator(RecurringDecorator recDec) {
-        super(recDec.getTask());
+        super(recDec.getTask().clone());
         this.app = recDec.getApp();
         this.recurrence = recDec.getRecurrence();
         this.type = recDec.getType();
@@ -22,7 +22,7 @@ public class RecurringDecorator extends TaskDecorator {
 
     @Override
     public void completeTask() {
-        super.task.completeTask();
+        task.completeTask();
         if (recurrence > 0) {
             Date listDate = app.getCurrentList().getDate();
             Date currentDate = (Date) listDate.clone();
@@ -41,10 +41,8 @@ public class RecurringDecorator extends TaskDecorator {
                     currentDate.setMonth(currentDate.getMonth() + 1);
                     break;
             }
-            // System.out.println("This Recurrence = " + this.getRecurrence());
             RecurringDecorator rd = (RecurringDecorator) this.clone();
-            rd.RecMinusOne();
-            // System.out.println("Recurrence = " + rd.getRecurrence());
+            rd.recMinusOne();
             rd.uncompleteTask();
 
             ArrayList<List> allLists = app.getMainList();
@@ -87,7 +85,7 @@ public class RecurringDecorator extends TaskDecorator {
         return app;
     }
 
-    public void RecMinusOne() {
+    public void recMinusOne() {
         this.recurrence = recurrence - 1;
     }
 }

@@ -6,7 +6,7 @@ public class TaskDecorator extends Task {
     }
 
     public TaskDecorator(TaskDecorator tasDec) {
-        this.task = tasDec.getTask();
+        this.task = tasDec.getTask().clone();
     }
 
     public String display() {
