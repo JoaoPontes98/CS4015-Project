@@ -11,7 +11,7 @@ public class AppointmentDecorator extends TaskDecorator {
     }
 
     public AppointmentDecorator(AppointmentDecorator appDec) {
-        super(appDec.getTask());
+        super(appDec.getTask().clone());
         this.time = appDec.getTime();
         this.location = appDec.getLocation();
     }
