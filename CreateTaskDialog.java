@@ -20,10 +20,12 @@ public class CreateTaskDialog extends JDialog implements ActionListener {
     private JButton cancelButton;
     private JPanel recurrencePanel;
     private JPanel appointmentPanel;
+    private List list;
 
-    public CreateTaskDialog(App app, JFrame frame) {
+    public CreateTaskDialog(App app, JFrame frame, List list) {
         super(frame);
         this.app = app;
+        this.list = list;
 
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
@@ -149,13 +151,14 @@ public class CreateTaskDialog extends JDialog implements ActionListener {
         if (e.getActionCommand().equals("OK")) {
             String description = descriptionField.getText();
 
-            int recurrenceNumber = recurringCheckBox.isSelected() ? Integer.parseInt(recurrenceNumberField.getText()) : null;
+            recurringCheckBox.isSelected();
+            int recurrenceNumber = recurringCheckBox.isSelected() ? Integer.parseInt(recurrenceNumberField.getText()) : 0;
             String recurrenceType = recurringCheckBox.isSelected() ? (String) recurrenceTypeComboBox.getSelectedItem() : null;
 
             String time = appointmentCheckBox.isSelected() ? timeField.getText() : null;
             String place = appointmentCheckBox.isSelected() ? placeField.getText() : null;
 
-            app.createNewTask(description, recurringCheckBox.isSelected(), appointmentCheckBox.isSelected(),
+            app.createNewTask(list, description, recurringCheckBox.isSelected(), appointmentCheckBox.isSelected(),
                                 recurrenceNumber, recurrenceType, time, place);
 
             setVisible(false);
