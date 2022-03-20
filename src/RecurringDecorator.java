@@ -5,12 +5,14 @@ public class RecurringDecorator extends TaskDecorator {
     private int recurrence;
     private String type;
     private App app;
+    private ArrayList<List> recurred;
 
     public RecurringDecorator(App app, Task task, int recurrence, String type) {
         super(task);
         this.app = app;
         this.recurrence = recurrence;
         this.type = type;
+        this.recurred = new ArrayList<List>();
     }
 
     public RecurringDecorator(RecurringDecorator recDec) {
@@ -18,6 +20,7 @@ public class RecurringDecorator extends TaskDecorator {
         this.app = recDec.getApp();
         this.recurrence = recDec.getRecurrence();
         this.type = recDec.getType();
+        this.recurred = new ArrayList<List>();
     }
 
     public int getRecurrence() {
@@ -66,7 +69,10 @@ public class RecurringDecorator extends TaskDecorator {
                 if (list.getDate().getYear() == currentDate.getYear() &&
                         list.getDate().getMonth() == currentDate.getMonth() &&
                         list.getDate().getDate() == currentDate.getDate()) {
-                    list.addItem(rd);
+                    if (!recurred.contains(list)) {
+                        list.addItem(rd);
+                        recurred.add(list);
+                    }
                     return;
                 }
             }
@@ -74,6 +80,7 @@ public class RecurringDecorator extends TaskDecorator {
             List newList = new List(currentDate);
             newList.addItem(rd);
             allLists.add(newList);
+            recurred.add(newList);
         }
     }
 
