@@ -16,7 +16,7 @@ public class CreateListDialog extends AppDialog {
         JPanel inputs = new JPanel();
         inputs.setLayout(new BoxLayout(inputs, BoxLayout.PAGE_AXIS));
 
-        JLabel dateLabel = new JLabel("Please enter a date:", JLabel.CENTER);
+        JLabel dateLabel = new JLabel("Please enter a date (yyyy/mm/dd):", JLabel.CENTER);
         dateLabel.setAlignmentX(0.5f);
 
         dateField = new JTextField(10);
