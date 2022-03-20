@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class App {
+public final class App {
     private static App instance;
     private JFrame mainFrame;
     private ArrayList<List> mainList;
@@ -10,9 +10,11 @@ public class App {
     private JPanel currentDisplay;
 
     public App() {
-        mainList = importData();
+        //instance = new App();
+        //mainList = importData();
+        mainList = new ArrayList<List>();
         mainFrame = new JFrame();
-
+        instance = this;
         Date today = new Date();
         List listToDisplay = null;
 
@@ -35,7 +37,7 @@ public class App {
     }
 
     public static App getInstance() {
-        if (instance == null) {
+        if (instance == null){
             instance = new App();
         }
         return instance;
@@ -62,19 +64,19 @@ public class App {
             currentDisplay.setVisible(false);
         }
         currentList = list;
-        currentDisplay = new ListScreen(this, getMainFrame(), list);
+        currentDisplay = new ListScreen(getMainFrame(), list);
     }
 
     public void openCreateListDialog() {
-        CreateListDialog dialog = new CreateListDialog(this, getMainFrame());
+        CreateListDialog dialog = new CreateListDialog(getMainFrame());
     }
 
     public void openBrowseListsDialog() {
-        BrowseListsDialog dialog = new BrowseListsDialog(this, getMainFrame());
+        BrowseListsDialog dialog = new BrowseListsDialog(getMainFrame());
     }
 
     public void openCreateTaskDialog(List list) {
-        CreateTaskDialog dialog = new CreateTaskDialog(this, getMainFrame(), list);
+        CreateTaskDialog dialog = new CreateTaskDialog(getMainFrame(), list);
     }
 
     public void createNewList(Date date) {
@@ -98,7 +100,7 @@ public class App {
             newTask = new AppointmentDecorator(newTask, time, place);
         }
         if (isRecurring) {
-            newTask = new RecurringDecorator(this, newTask, recurrenceNumber, recurrenceType);
+            newTask = new RecurringDecorator(newTask, recurrenceNumber, recurrenceType);
         }
 
         list.addItem(newTask);
@@ -106,11 +108,11 @@ public class App {
     }
 
     private ArrayList<List> importData() {
-        /* 
+        /*
         This method is a placeholder. In the future we would implement it to
         import real data from whatever source we decide, such as json files stored
         somewhere or a database. So long as this method creates an ArrayList out of
-        the data, the App doesn't care where the data comes from. For the purpose of this project, 
+        the data, the App doesn't care where the data comes from. For the purpose of this project,
         we are creating the method but implementing it with testing data.
         */
 
@@ -130,9 +132,9 @@ public class App {
         AppointmentDecorator task6AppDec = new AppointmentDecorator(task6, "3:00", "450 Hospital Street");
         AppointmentDecorator task7AppDec = new AppointmentDecorator(task7, "6:00", "200 Mom Street");
 
-        RecurringDecorator task3RecDec = new RecurringDecorator(this, task3, 30, "Daily");
-        RecurringDecorator task4RecDec = new RecurringDecorator(this, task4, 2, "Weekly");
-        RecurringDecorator task7RecDec = new RecurringDecorator(this, task7AppDec, 10, "Weekly");
+        RecurringDecorator task3RecDec = new RecurringDecorator(task3, 30, "Daily");
+        RecurringDecorator task4RecDec = new RecurringDecorator(task4, 2, "Weekly");
+        RecurringDecorator task7RecDec = new RecurringDecorator(task7AppDec, 10, "Weekly");
 
         List sublist = new List("Chores");
         List sublist2 = new List("Meetings");

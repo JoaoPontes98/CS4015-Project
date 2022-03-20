@@ -7,9 +7,9 @@ public class RecurringDecorator extends TaskDecorator {
     private App app;
     private ArrayList<List> recurred;
 
-    public RecurringDecorator(App app, Task task, int recurrence, String type) {
+    public RecurringDecorator( Task task, int recurrence, String type) {
         super(task);
-        this.app = app;
+        this.app = App.getInstance();
         this.recurrence = recurrence;
         this.type = type;
         this.recurred = new ArrayList<List>();
@@ -17,7 +17,7 @@ public class RecurringDecorator extends TaskDecorator {
 
     public RecurringDecorator(RecurringDecorator recDec) {
         super(recDec.getTask().clone());
-        this.app = recDec.getApp();
+        this.app = App.getInstance();
         this.recurrence = recDec.getRecurrence();
         this.type = recDec.getType();
         this.recurred = new ArrayList<List>();

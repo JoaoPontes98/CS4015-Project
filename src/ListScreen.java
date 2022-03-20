@@ -13,8 +13,8 @@ public class ListScreen extends JPanel implements ActionListener {
     private ArrayList<Item> mainList = new ArrayList<Item>();
     private ArrayList<JComponent> checkBoxes = new ArrayList<JComponent>();
 
-    public ListScreen(App app, JFrame frame, List listToDisplay) {
-        this.app = app;
+    public ListScreen(JFrame frame, List listToDisplay) {
+        this.app = App.getInstance();
         this.listToDisplay = listToDisplay;
         app.setCurrentDisplay(this);
         setLayout(new BorderLayout());
@@ -179,7 +179,7 @@ public class ListScreen extends JPanel implements ActionListener {
         public PlusButton(List list, App app) {
             super("Add");
             this.list = list;
-            AddTaskMenu addTaskMenu = new AddTaskMenu(app, this, list);
+            AddTaskMenu addTaskMenu = new AddTaskMenu( this, list);
 
             Font font = new Font("Arial", Font.PLAIN, 8);
             setFont(font);
