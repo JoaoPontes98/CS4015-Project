@@ -4,7 +4,7 @@ For this project, we have created a simple Daily Planner app using Java. The app
 This app is intended to showcase the use of different design patterns and extendable code. The main design patterns used include the Composite, Decorator, Prototype, and Singleton patterns, as well as making use of abstract classes, interfaces, and subclassing.
 
 The app's source code, written in Java and mainly utilizing Java Swing for the UI components, can be found in the src folder.   
-The app's documentation provides a more in depth look at the functions, how to use the app, how the app functions, and what design patterns it utilizes. It can be found in the  doc folder.
+The app's documentation provides details on how to use the app, how the app functions, and what design patterns it utilizes. It can be found in the doc folder's README file visible in the browser.
 
 Created by Will Leonard and Joao Pontes.
 
