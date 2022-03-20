@@ -3,14 +3,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class App {
+    private static App instance;
     private JFrame mainFrame;
     private ArrayList<List> mainList;
     private List currentList;
     private JPanel currentDisplay;
-    
-    public static void main(String[] args) {
-        App app = new App();
-    }
 
     public App() {
         mainList = importData();
@@ -35,6 +32,13 @@ public class App {
         displayList(listToDisplay);
         mainFrame.setVisible(true);
         mainFrame.pack();
+    }
+
+    public static App getInstance() {
+        if (instance == null) {
+            instance = new App();
+        }
+        return instance;
     }
 
     public JFrame getMainFrame() {
