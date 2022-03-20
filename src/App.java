@@ -10,33 +10,29 @@ public class App {
     
     public static void main(String[] args) {
         App app = new App();
-        Date date = new Date();
-        date.setDate(date.getDate() + 1);
-        List list = new List(date);
-        BasicTask task1 = new BasicTask("Feed Cat");
-        BasicTask task2 = new BasicTask("Feed Friend's Cat");
-        BasicTask task3 = new BasicTask("Feed Mom's Cat");
-        AppointmentDecorator task2dec = new AppointmentDecorator(task2, "12:00", "Friend's House");
-        RecurringDecorator task3dec = new RecurringDecorator(app, task3, 5, "Daily");
-        List sublist = new List("Sublist 1");
-        List sublist2 = new List("Sublist 2");
-        sublist2.addItem(task3dec);
-        sublist.addItem(sublist2);
-        sublist.addItem(task1);
-        list.addItem(task1);
-        list.addItem(task2dec);
-        list.addItem(sublist);
-        app.getMainList().add(list);
-        app.displayList(list);
     }
 
     public App() {
-        mainList = new ArrayList<List>();
+        mainList = importData();
         mainFrame = new JFrame();
 
-        Date currentDate = new Date();
+        Date today = new Date();
+        List listToDisplay = null;
 
-        createNewList(currentDate);
+        for (List list : mainList) {
+            if (list.getDate().getYear() == today.getYear() &&
+                list.getDate().getMonth() == today.getMonth() &&
+                list.getDate().getDate() == today.getDate()) {
+                    listToDisplay = list;
+                    break;
+                }
+        }
+        if (listToDisplay == null) {
+            listToDisplay = new List(today);
+            mainList.add(listToDisplay);
+        }
+
+        displayList(listToDisplay);
         mainFrame.setVisible(true);
         mainFrame.pack();
     }
@@ -103,5 +99,53 @@ public class App {
 
         list.addItem(newTask);
         displayList(currentList);
+    }
+
+    private ArrayList<List> importData() {
+        /* 
+        This method is a placeholder. In the future we would implement it to
+        import real data from whatever source we decide, such as json files stored
+        somewhere or a database. So long as this method creates an ArrayList out of
+        the data, the App doesn't care where the data comes from. For the purpose of this project, 
+        we are creating the method but implementing it with testing data.
+        */
+
+        ArrayList<List> dataImported = new ArrayList<List>();
+
+        Date date = new Date();
+        List list = new List(date);
+        BasicTask task1 = new BasicTask("Assignment Due");
+        BasicTask task2 = new BasicTask("Statistics Midterm");
+        BasicTask task3 = new BasicTask("Clean Dishes");
+        BasicTask task4 = new BasicTask("Take out Trash");
+        BasicTask task5 = new BasicTask("Meet Friend");
+        BasicTask task6 = new BasicTask("Doctor's Appointment");
+        BasicTask task7 = new BasicTask("Meet Mom");
+
+        AppointmentDecorator task5AppDec = new AppointmentDecorator(task5, "12:00", "Coffee Shop");
+        AppointmentDecorator task6AppDec = new AppointmentDecorator(task6, "3:00", "450 Hospital Street");
+        AppointmentDecorator task7AppDec = new AppointmentDecorator(task7, "6:00", "200 Mom Street");
+
+        RecurringDecorator task3RecDec = new RecurringDecorator(this, task3, 30, "Daily");
+        RecurringDecorator task4RecDec = new RecurringDecorator(this, task4, 2, "Weekly");
+        RecurringDecorator task7RecDec = new RecurringDecorator(this, task7AppDec, 10, "Weekly");
+
+        List sublist = new List("Chores");
+        List sublist2 = new List("Meetings");
+
+        sublist.addItem(task3RecDec);
+        sublist.addItem(task4RecDec);
+
+        sublist2.addItem(task5AppDec);
+        sublist2.addItem(task6AppDec);
+        sublist2.addItem(task7RecDec);
+
+        list.addItem(task1);
+        list.addItem(task2);
+        list.addItem(sublist);
+        list.addItem(sublist2);
+
+        dataImported.add(list);
+        return dataImported;
     }
 }
