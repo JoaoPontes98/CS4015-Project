@@ -13,10 +13,9 @@ public class CreateTaskDialog extends AppDialog {
     private JPanel recurrence;
     private JPanel appointment;
     private List list;
-    private App app;
+
     public CreateTaskDialog(JFrame frame, List list) {
         super(frame);
-        this.app = App.getInstance();
         this.list = list;
     }
 

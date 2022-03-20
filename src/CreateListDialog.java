@@ -7,11 +7,9 @@ import java.text.ParseException;
 
 public class CreateListDialog extends AppDialog {
     private JTextField dateField;
-    private App app;
 
     public CreateListDialog(JFrame frame) {
         super(frame);
-        this.app = App.getInstance();
     }
 
     protected JPanel createInputsPanel() {

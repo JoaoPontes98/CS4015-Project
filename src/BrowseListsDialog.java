@@ -8,10 +8,9 @@ import java.util.ArrayList;
 
 public class BrowseListsDialog extends AppDialog {
     private JList<String> datesList;
-    private App app;
     public BrowseListsDialog(JFrame frame) {
         super(frame);
-        this.app = App.getInstance();
+        System.out.println(app);
     }
 
     protected JPanel createInputsPanel() {

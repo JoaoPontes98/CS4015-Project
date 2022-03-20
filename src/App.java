@@ -10,11 +10,20 @@ public final class App {
     private JPanel currentDisplay;
 
     public App() {
-        //instance = new App();
-        //mainList = importData();
         mainList = new ArrayList<List>();
         mainFrame = new JFrame();
-        instance = this;
+    }
+
+    public static App getInstance() {
+        if (instance == null){
+            instance = new App();
+            instance.setup();
+        }
+        return instance;
+    }
+
+    private void setup() {
+        mainList = importData();
         Date today = new Date();
         List listToDisplay = null;
 
@@ -34,13 +43,6 @@ public final class App {
         displayList(listToDisplay);
         mainFrame.setVisible(true);
         mainFrame.pack();
-    }
-
-    public static App getInstance() {
-        if (instance == null){
-            instance = new App();
-        }
-        return instance;
     }
 
     public JFrame getMainFrame() {
