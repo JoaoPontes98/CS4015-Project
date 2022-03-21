@@ -59,6 +59,13 @@ As well, the decorator pattern allows us to add new functionality to the basic t
 
 Using a decorator allows us to implement all the above functionality in any combination while only have to implement them in code once. As well, because we have a basic class we want to be able to dynamically add new functionality to while still treating it as an item in our composite structure, the decorator pattern is a natural choice.
 
+#### Prototype Pattern
+This pattern is used to implement the recurring functionality, where a recurring task must create itself again in a future list when completed. Initially, when trying to implement this we had the recurring decorator add itself (and whatever it wrapped) into the new list. But, the issue here is that if the task that is wrapped is only reused instead of copied, when the task is displayed in the future list it would share whatever completion status the task has in the original list, since it is the same object after all. But, we wanted to be able to have the task in the original list remain checked, while the task in the future list would start unchecked. As well, the number of recurrences displayed should decrease each time in the new list only, not the original.
+
+This leads to the idea of being able to copy the recurring decorator, but a new problem arises! The recurring decorator can wrap any number of other decorators and a task, and as mentioned we cannot reuse the task since it must have a different completion status. So we need to be able to copy not only the recurring decorator, but every decorator as well as tasks. The solution we found is then to define a clone() function in our Item interface, which tasks and decorators implement. The Item interface then acts as the prototype interface, and we can be assured that any item which implements it is able to be cloned and returned as an Item type. 
+
+So after implementing the clone() function in each class we want to clone, the recurring decorator can now fully clone itself and have it wrap a recursively-copied clone of whatever the original wraps, regardless of if it is a decorator, task, or any combination of them. As a result, we can easily clone the task and its decorators in their entirety without having to anticipate their structure, so we can update the completion status and number of recurrences without affecting the original with minimal code required.
+
 ## Extensibility
 
 ## Contributions
