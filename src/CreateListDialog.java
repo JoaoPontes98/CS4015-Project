@@ -56,7 +56,7 @@ public class CreateListDialog extends AppDialog {
             String dateString = dateField.getText();
             SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 
-            if (dateString != null) {
+            if (dateString == "") {
                 try {
                     Date date = format.parse(dateString);
                     app.createNewList(date);
@@ -66,6 +66,10 @@ public class CreateListDialog extends AppDialog {
                 }
 
                 close();
+            }
+            else {
+                System.out.println("Error: Date cannot be empty");
+                return;
             }
         }
         else if (event.getActionCommand().equals("Cancel")) {
