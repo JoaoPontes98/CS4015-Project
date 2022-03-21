@@ -10,7 +10,6 @@ public class BrowseListsDialog extends AppDialog {
     private JList<String> datesList;
     public BrowseListsDialog(JFrame frame) {
         super(frame);
-        System.out.println(app);
     }
 
     protected JPanel createInputsPanel() {
