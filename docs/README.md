@@ -89,3 +89,7 @@ The last place where we can showcase our extensibility is in the UI elements. Wh
 - Secondly, we made our UI even more extensible by abstracting further. While developing many of the dialogs in the app, it was noticed that they all shared some common actions: initializing the dialog, the panel that its contents would be in, setting up inputs and buttons, and then displaying the dialog. So, all of this was moved out of the individual dialogs and placed into a parent class, AppDialog. This parent class contains the common code and abstract methods for setting up the contents which child dialogs would need to define. Using this parent class, we can easily add new dialogs in the future by implementing the methods for setting up the contents and then allowing the AppDialog class to take care of the rest. As well, in the future we could capitalize on this by creating reusable methods which act on AppDialogs, so that any new UI elements that extend AppDialog can also be used by these methods.
 
 ## Contributions
+
+Joao:
+
+Will:
