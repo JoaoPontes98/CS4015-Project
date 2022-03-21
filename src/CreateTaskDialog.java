@@ -14,8 +14,8 @@ public class CreateTaskDialog extends AppDialog {
     private JPanel appointment;
     private List list;
 
-    public CreateTaskDialog(App app, JFrame frame, List list) {
-        super(frame, app);
+    public CreateTaskDialog(JFrame frame, List list) {
+        super(frame);
         this.list = list;
     }
 

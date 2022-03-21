@@ -6,9 +6,9 @@ public class AddTaskMenu extends JPopupMenu implements ActionListener {
     private App app;
     private List list;
 
-    public AddTaskMenu(App app, Component component, List list) {
+    public AddTaskMenu(Component component, List list) {
         this.list = list;
-        this.app = app;
+        this.app = app.getInstance();
 
         JMenuItem taskItem = new JMenuItem("New Task");
         JMenuItem sublistItem = new JMenuItem("New Sublist");

@@ -8,8 +8,8 @@ import java.text.ParseException;
 public class CreateListDialog extends AppDialog {
     private JTextField dateField;
 
-    public CreateListDialog(App app, JFrame frame) {
-        super(frame, app);
+    public CreateListDialog(JFrame frame) {
+        super(frame);
     }
 
     protected JPanel createInputsPanel() {
