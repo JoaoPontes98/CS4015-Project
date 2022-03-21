@@ -151,11 +151,22 @@ public class CreateTaskDialog extends AppDialog {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("OK")) {
             String description = descriptionField.getText();
+            if (description.equals("")) {
+                System.out.println("Error: Description must be filled out");
+                return;
+            }
 
-            recurringCheckBox.isSelected();
+            if (recurringCheckBox.isSelected() && recurrenceNumberField.getText().equals("")) {
+                System.out.println("Error: Recurrence number must be filled out");
+                return;
+            }
             int recurrenceNumber = recurringCheckBox.isSelected() ? Integer.parseInt(recurrenceNumberField.getText()) : 0;
             String recurrenceType = recurringCheckBox.isSelected() ? (String) recurrenceTypeComboBox.getSelectedItem() : null;
 
+            if (appointmentCheckBox.isSelected() && (timeField.getText().equals("")|| placeField.getText().equals(""))) {
+                System.out.println("Error: Time and location must be filled out");
+                return;
+            }
             String time = appointmentCheckBox.isSelected() ? timeField.getText() : null;
             String place = appointmentCheckBox.isSelected() ? placeField.getText() : null;
 
