@@ -9,7 +9,7 @@ public class CreateListDialog extends AppDialog {
     private JTextField dateField;
 
     public CreateListDialog(JFrame frame) {
-        super(frame);
+        super(frame, "Create New");
     }
 
     protected JPanel createInputsPanel() {

@@ -5,8 +5,8 @@ import java.awt.event.*;
 public abstract class AppDialog extends JDialog implements ActionListener {
     App app;
 
-    public AppDialog(JFrame frame) {
-        super(frame);
+    public AppDialog(JFrame frame, String title) {
+        super(frame, title);
         this.app = App.getInstance();
 
         JPanel contentPane = new JPanel();
