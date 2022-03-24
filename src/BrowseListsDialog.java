@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class BrowseListsDialog extends AppDialog {
     private JList<String> datesList;
     public BrowseListsDialog(JFrame frame) {
-        super(frame);
+        super(frame, "Browse");
     }
 
     protected JPanel createInputsPanel() {

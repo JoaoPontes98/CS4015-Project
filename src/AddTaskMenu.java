@@ -36,7 +36,7 @@ public class AddTaskMenu extends JPopupMenu implements ActionListener {
             app.openCreateTaskDialog(list);
         } else if (e.getActionCommand().equals("newSublist")) {
             String description = (String) JOptionPane.showInputDialog(this, "Please enter a description:",
-                    "Create New Sublist", JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    "New Sublist", JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             if (description != null) {
                 if (description.equals("")) {
