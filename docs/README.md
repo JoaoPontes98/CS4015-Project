@@ -93,6 +93,6 @@ The last place where we can showcase our extensibility is in the UI elements. Wh
 
 ## Contributions
 
-Joao:
+Joao: 35%
 
-Will:
+Will: 65%
